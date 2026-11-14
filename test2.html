@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>اختبار</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fira+Code:wght@400;500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0b1021;
+      --bg-secondary: #131b36;
+      --card-bg: rgba(22, 31, 61, 0.88);
+      --card-border: rgba(99, 102, 241, 0.28);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-1: #6366f1;
+      --accent-2: #8b5cf6;
+      --accent-3: #06b6d4;
+      --option-bg: rgba(30, 41, 82, 0.72);
+      --option-hover: rgba(51, 65, 122, 0.88);
+      --option-selected: rgba(99, 102, 241, 0.28);
+      --option-selected-border: #818cf8;
+      --code-bg: #070b17;
+      --code-border: rgba(56, 189, 248, 0.25);
+      --success: #10b981;
+      --danger: #ef4444;
+      --font-scale: 1;
+      --shadow-glow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.15);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f1f5f9;
+      --bg-secondary: #e2e8f0;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: rgba(99, 102, 241, 0.25);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent-1: #4f46e5;
+      --accent-2: #7c3aed;
+      --accent-3: #0284c7;
+      --option-bg: #f8fafc;
+      --option-hover: #eef2ff;
+      --option-selected: #e0e7ff;
+      --option-selected-border: #4f46e5;
+      --code-bg: #0f172a;
+      --code-border: #334155;
+      --shadow-glow: 0 15px 35px rgba(15, 23, 42, 0.08), 0 0 20px rgba(79, 70, 229, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cairo', 'Inter', sans-serif;
+      background: radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.18), transparent 40%),
+                  radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.16), transparent 40%),
+                  linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.35;
+      animation: floatOrb 14s infinite ease-in-out alternate;
+    }
+
+    .orb-1 {
+      width: 320px;
+      height: 320px;
+      background: var(--accent-1);
+      top: -80px;
+      right: -80px;
+    }
+
+    .orb-2 {
+      width: 280px;
+      height: 280px;
+      background: var(--accent-3);
+      bottom: -60px;
+      left: -60px;
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      width: 220px;
+      height: 220px;
+      background: var(--accent-2);
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -9s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, -35px) scale(1.12); }
+    }
+
+    .app-container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      padding: 14px 22px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-glow);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .main-title {
+      font-size: calc(1.85rem * var(--font-scale));
+      font-weight: 900;
+      background: linear-gradient(135deg, #818cf8, #38bdf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
+    }
+
+    .toolbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tool-btn {
+      background: var(--option-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      padding: 8px 13px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tool-btn:hover {
+      background: var(--option-hover);
+      transform: translateY(-2px);
+      border-color: var(--accent-1);
+    }
+
+    .progress-wrapper {
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 16px 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: calc(0.98rem * var(--font-scale));
+      color: var(--text-muted);
+    }
+
+    .progress-badge {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 11px;
+      background: rgba(148, 163, 184, 0.18);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 10%;
+      background: linear-gradient(90deg, var(--accent-3), var(--accent-1), var(--accent-2));
+      border-radius: 999px;
+      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .quiz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 28px 26px;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-glow);
+      animation: cardSlideIn 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes cardSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .question-box {
+      margin-bottom: 20px;
+    }
+
+    .q-ar {
+      font-size: calc(1.25rem * var(--font-scale));
+      font-weight: 800;
+      line-height: 1.65;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      text-align: right;
+      direction: rtl;
+    }
+
+    .q-en {
+      font-family: 'Inter', 'Cairo', sans-serif;
+      font-size: calc(1.06rem * var(--font-scale));
+      font-weight: 600;
+      line-height: 1.55;
+      color: var(--text-muted);
+      text-align: left;
+      direction: ltr;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.22);
+    }
+
+    .code-container {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 16px;
+      margin: 18px 0 24px;
+      overflow: hidden;
+      direction: ltr;
+      text-align: left;
+      box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.45);
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 7px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    .code-lang {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    pre.code-snippet {
+      padding: 18px 20px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: calc(0.98rem * var(--font-scale));
+      line-height: 1.65;
+      color: #e2e8f0;
+      margin: 0;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 13px;
+      margin-bottom: 26px;
+    }
+
+    .option-btn {
+      width: 100%;
+      background: var(--option-bg);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 15px 18px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: calc(1.04rem * var(--font-scale));
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+      text-align: right;
+    }
+
+    .option-btn:hover {
+      background: var(--option-hover);
+      transform: translateX(-4px);
+      border-color: rgba(129, 140, 248, 0.45);
+    }
+
+    .option-btn.selected {
+      background: var(--option-selected);
+      border-color: var(--option-selected-border);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
+      transform: scale(1.01);
+    }
+
+    .option-letter {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 10px;
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(129, 140, 248, 0.35);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn.selected .option-letter {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .option-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .opt-ar {
+      direction: rtl;
+      text-align: right;
+    }
+
+    .opt-en {
+      direction: ltr;
+      text-align: left;
+      font-family: 'Inter', 'Cairo', sans-serif;
+      font-size: calc(0.92rem * var(--font-scale));
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .opt-code {
+      direction: ltr;
+      text-align: left;
+      font-family: 'Fira Code', monospace;
+      font-size: calc(1rem * var(--font-scale));
+      font-weight: 600;
+    }
+
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid rgba(148, 163, 184, 0.16);
+      padding-top: 20px;
+    }
+
+    .lock-note {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #ffffff;
+      border: none;
+      padding: 13px 30px;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: calc(1.05rem * var(--font-scale));
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 22px rgba(99, 102, 241, 0.35);
+    }
+
+    .next-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.5);
+    }
+
+    .next-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .results-screen {
+      display: none;
+      animation: cardSlideIn 0.5s ease;
+    }
+
+    .score-hero {
+      text-align: center;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 36px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .score-circle {
+      width: 155px;
+      height: 155px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background: conic-gradient(var(--accent-1) var(--score-deg, 0deg), rgba(148, 163, 184, 0.18) 0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 35px rgba(99, 102, 241, 0.3);
+    }
+
+    .score-circle::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      background: var(--bg-secondary);
+      border-radius: 50%;
+    }
+
+    .score-value {
+      position: relative;
+      z-index: 1;
+      font-size: 2.1rem;
+      font-weight: 900;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .stat-pill {
+      padding: 10px 20px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 0.98rem;
+      background: var(--option-bg);
+      border: 1px solid var(--card-border);
+    }
+
+    .stat-pill.correct-pill {
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+
+    .stat-pill.wrong-pill {
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.35);
+    }
+
+    .single-attempt-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    [data-theme="light"] .single-attempt-banner {
+      background: rgba(245, 158, 11, 0.12);
+      color: #b45309;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      padding: 9px 18px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-tab.active {
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .review-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .review-item.is-correct {
+      border-right: 6px solid var(--success);
+    }
+
+    .review-item.is-wrong {
+      border-right: 6px solid var(--danger);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+
+    .status-tag {
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .status-tag.ok {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+    }
+
+    .status-tag.err {
+      background: rgba(239, 68, 68, 0.18);
+      color: #f87171;
+    }
+
+    .review-answers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .ans-box {
+      padding: 12px 15px;
+      border-radius: 12px;
+      background: var(--option-bg);
+      font-size: 0.95rem;
+    }
+
+    .ans-box.student-wrong {
+      border: 1px solid rgba(239, 68, 68, 0.45);
+    }
+
+    .ans-box.right-ans {
+      border: 1px solid rgba(16, 185, 129, 0.45);
+    }
+
+    .ans-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .explanation-box {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px dashed rgba(129, 140, 248, 0.35);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .quiz-card {
+        padding: 20px 16px;
+      }
+      .quiz-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+      .next-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="app-container">
+    <header class="top-bar">
+      <h1 class="main-title">اختبار</h1>
+      <div class="toolbar-controls">
+        <button type="button" class="tool-btn" id="langModeBtn" title="تبديل عرض اللغة / Language View">
+          <span>🌐</span>
+          <span id="langModeLabel">عربي + EN</span>
+        </button>
+        <button type="button" class="tool-btn" id="fontPlusBtn" title="تكبير الخط">A+</button>
+        <button type="button" class="tool-btn" id="fontMinusBtn" title="تصغير الخط">A-</button>
+        <button type="button" class="tool-btn" id="soundToggleBtn" title="الصوت">🔊</button>
+        <button type="button" class="tool-btn" id="themeToggleBtn" title="المظهر">🌙</button>
+      </div>
+    </header>
+
+    <main id="quizSection">
+      <div class="progress-wrapper">
+        <div class="progress-info">
+          <span id="progressText">السؤال 1 من 10 | Question 1 of 10</span>
+          <span class="progress-badge" id="progressPercent">10%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressBar"></div>
+        </div>
+      </div>
+
+      <section class="quiz-card" id="questionCard">
+        <div class="question-box">
+          <div class="q-ar" id="qTextAr"></div>
+          <div class="q-en" id="qTextEn"></div>
+        </div>
+
+        <div class="code-container" id="codeContainer">
+          <div class="code-header">
+            <div class="window-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="code-lang">Python 3</span>
+          </div>
+          <pre class="code-snippet" id="qCode"></pre>
+        </div>
+
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <div class="quiz-footer">
+          <div class="lock-note" id="lockNote">
+            <span>🔒</span>
+            <span>مسموح بحل الاختبار مرة واحدة فقط وتظهر النتيجة في النهاية | Single attempt only & results shown at the end</span>
+          </div>
+          <button type="button" class="next-btn" id="nextBtn" disabled>
+            السؤال التالي / Next ⬅
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <section class="results-screen" id="resultsSection">
+      <div class="score-hero">
+        <div class="score-circle" id="scoreCircle">
+          <span class="score-value" id="scoreValue">0 / 10</span>
+        </div>
+        <h2 id="scoreHeadline" style="font-size: 1.55rem; margin-bottom: 6px;"></h2>
+        <p id="scoreSubtext" style="color: var(--text-muted); font-size: 1rem;"></p>
+
+        <div class="stats-row">
+          <div class="stat-pill correct-pill" id="correctCountPill">إجابات صحيحة: 0</div>
+          <div class="stat-pill wrong-pill" id="wrongCountPill">إجابات خاطئة: 0</div>
+          <div class="stat-pill" id="percentPill">النسبة: 0%</div>
+        </div>
+
+        <div class="single-attempt-banner" id="attemptLockBanner">
+          <span>🔒</span>
+          <span>تم تسليم الاختبار نهائياً — مسموح بحل الاختبار مرة واحدة فقط | Attempt Locked (Single Attempt Only)</span>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <button type="button" class="filter-tab active" data-filter="all">جميع الأسئلة (10) / All</button>
+        <button type="button" class="filter-tab" data-filter="wrong">الإجابات الخاطئة فقط / Mistakes</button>
+        <button type="button" class="filter-tab" data-filter="correct">الإجابات الصحيحة فقط / Correct</button>
+      </div>
+
+      <div class="review-list" id="reviewList"></div>
+    </section>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        ar: "ما هو ناتج تنفيذ الكود الشرطي التالي؟",
+        en: "What is the output of executing the following conditional code?",
+        code: "x = 7\nif x == 5:\n    print('yes')",
+        isCodeOptions: false,
+        options: [
+          { ar: "لا يطبع أي شيء على الشاشة", en: "Prints nothing on the screen" },
+          { ar: "يطبع كلمة yes على الشاشة", en: "Prints the word yes on the screen" },
+          { ar: "يطبع الرقم 7 على الشاشة", en: "Prints the number 7 on the screen" },
+          { ar: "يطبع الرقم 5 على الشاشة", en: "Prints the number 5 on the screen" }
+        ],
+        correct: 0,
+        expAr: "الشرط x == 5 غير متحقق لأن قيمة x هي 7، ولا توجد جملة else، لذلك لا يطبع البرنامج أي شيء.",
+        expEn: "Since x is 7, the condition x == 5 is False, and with no else branch, nothing is printed."
+      },
+      {
+        ar: "ماذا سيطبع الكود التالي عند تشغيله؟",
+        en: "What will the following code print when executed?",
+        code: "x = 5\nif x == 3:\n    print('yes')\nelse:\n    print('no')",
+        isCodeOptions: true,
+        options: [
+          { ar: "yes", en: "yes" },
+          { ar: "no", en: "no" },
+          { ar: "5", en: "5" },
+          { ar: "3", en: "3" }
+        ],
+        correct: 1,
+        expAr: "بما أن x تساوي 5 فإن الشرط x == 3 خاطئ، فينتقل التنفيذ إلى فرع else ويطبع no.",
+        expEn: "Because x equals 5, the condition x == 3 is False, so the else branch executes and prints no."
+      },
+      {
+        ar: "ما هو نوع البيانات للرقم 0 في الكود التالي؟",
+        en: "What is the data type of the number 0 in the following code?",
+        code: "x = 0",
+        isCodeOptions: true,
+        options: [
+          { ar: "float", en: "float" },
+          { ar: "string", en: "string" },
+          { ar: "integer", en: "integer" },
+          { ar: "boolean", en: "boolean" }
+        ],
+        correct: 2,
+        expAr: "الرقم 0 بدون علامة عشرية أو علامات تنصيص ينتمي إلى الأعداد الصحيحة (integer).",
+        expEn: "The number 0 without a decimal point or quotes is an integer."
+      },
+      {
+        ar: "إذا أدخل المستخدم 4 ثم 6 بدون استخدام دالة int() كما في الكود التالي، فما الناتج؟",
+        en: "If the user enters 4 then 6 without using int() as in the following code, what is the output?",
+        code: "n1 = input('Enter a number: ')\nn2 = input('Enter a number: ')\nprint(n1 + n2)",
+        isCodeOptions: true,
+        options: [
+          { ar: "10", en: "10" },
+          { ar: "24", en: "24" },
+          { ar: "4 + 6", en: "4 + 6" },
+          { ar: "46", en: "46" }
+        ],
+        correct: 3,
+        expAr: "دالة input() ترجع نصوصاً، وعلامة + بين نصين تقوم بدمجهما بجانب بعضهما ('4' + '6' = '46').",
+        expEn: "input() returns strings, and the + operator concatenates two strings side by side ('4' + '6' = '46')."
+      },
+      {
+        ar: "ما هو الحرف الذي سيطبعه الكود التالي؟",
+        en: "Which character will the following code print?",
+        code: "name = 'ahmed'\nprint(name[0])",
+        isCodeOptions: true,
+        options: [
+          { ar: "a", en: "a" },
+          { ar: "h", en: "h" },
+          { ar: "m", en: "m" },
+          { ar: "d", en: "d" }
+        ],
+        correct: 0,
+        expAr: "الفهرس [0] يشير دائماً إلى الحرف الأول من اليسار في النص، وهو الحرف a.",
+        expEn: "Index [0] always refers to the very first character of the string, which is 'a'."
+      },
+      {
+        ar: "ما هو الرقم الذي سيطبعه الكود التالي؟",
+        en: "What number will the following code print?",
+        code: "name = 'kareem'\nprint(len(name))",
+        isCodeOptions: true,
+        options: [
+          { ar: "5", en: "5" },
+          { ar: "6", en: "6" },
+          { ar: "7", en: "7" },
+          { ar: "4", en: "4" }
+        ],
+        correct: 1,
+        expAr: "دالة len() تحسب عدد حروف النص، وكلمة kareem تتكون من 6 حروف.",
+        expEn: "The len() function counts the characters in the string; 'kareem' has 6 characters."
+      },
+      {
+        ar: "ما هو الاسم الذي سيطبعه الكود التالي من القائمة؟",
+        en: "Which name will the following code print from the list?",
+        code: "students = ['Nourseen', 'Youssef', 'Hamza', 'Kareem']\nprint(students[2])",
+        isCodeOptions: true,
+        options: [
+          { ar: "Nourseen", en: "Nourseen" },
+          { ar: "Youssef", en: "Youssef" },
+          { ar: "Hamza", en: "Hamza" },
+          { ar: "Kareem", en: "Kareem" }
+        ],
+        correct: 2,
+        expAr: "ترقيم عناصر القائمة يبدأ من 0: الفهرس 0 هو Nourseen، و1 هو Youssef، و2 هو Hamza.",
+        expEn: "List indexing starts at 0: index 0 is Nourseen, 1 is Youssef, and 2 is Hamza."
+      },
+      {
+        ar: "ماذا سيطبع الكود التالي عند استخدام الفهرس [-1] مع القائمة؟",
+        en: "What will the following code print when using index [-1] with the list?",
+        code: "students = ['Nourseen', 'Youssef', 'Hamza', 'Kareem']\nprint(students[-1])",
+        isCodeOptions: true,
+        options: [
+          { ar: "Nourseen", en: "Nourseen" },
+          { ar: "Youssef", en: "Youssef" },
+          { ar: "Hamza", en: "Hamza" },
+          { ar: "Kareem", en: "Kareem" }
+        ],
+        correct: 3,
+        expAr: "الفهرس [-1] يجلب العنصر الأخير من القائمة مباشرة وهو Kareem.",
+        expEn: "Index [-1] directly accesses the last element of the list, which is Kareem."
+      },
+      {
+        ar: "ما السمة الأساسية لنوع البيانات tuple كما في الكود التالي؟",
+        en: "What is the main characteristic of the tuple data type shown in the code?",
+        code: "students = ('ali', 'omar', 'ahmed')\nprint(students)",
+        isCodeOptions: false,
+        options: [
+          { ar: "عناصره ثابتة لا يمكن تعديلها بعد إنشائها", en: "Its items cannot be modified after creation" },
+          { ar: "عناصره لا يمكن طباعتها باستخدام دالة print", en: "Its items cannot be printed using print" },
+          { ar: "عناصره تقبل تخزين الأرقام الصحيحة فقط", en: "Its items accept storing whole numbers only" },
+          { ar: "عناصره تحذف العنصر الأخير تلقائياً عند الطباعة", en: "Its items automatically delete the last element" }
+        ],
+        correct: 0,
+        expAr: "الـ tuple يُكتب بأقواس دائرية () وتكون عناصره غير قابلة للتعديل أو الحذف بعد إنشائه (Immutable).",
+        expEn: "A tuple uses parentheses () and is immutable, meaning its elements cannot be changed after creation."
+      },
+      {
+        ar: "ما هو ناتج تنفيذ الكود التالي عندما تكون قيمة x تساوي 10؟",
+        en: "What is the output of the following code when x equals 10?",
+        code: "x = 10\nif x == 3:\n    print('yes')\nelif x == 5:\n    print('hello')\nelif x == 7:\n    print('welcome')\nelse:\n    print('goodbye')",
+        isCodeOptions: true,
+        options: [
+          { ar: "yes", en: "yes" },
+          { ar: "goodbye", en: "goodbye" },
+          { ar: "welcome", en: "welcome" },
+          { ar: "hello", en: "hello" }
+        ],
+        correct: 1,
+        expAr: "بما أن قيمة x هي 10 ولا تساوي 3 أو 5 أو 7، يتم تنفيذ جملة else الأخيرة وتطبع goodbye.",
+        expEn: "Since x is 10 and matches none of the if/elif conditions (3, 5, or 7), the final else block runs and prints goodbye."
+      }
+    ];
+
+    const STORAGE_KEY = 'python_quiz_extra_10_single_attempt_v1';
+    let currentIndex = 0;
+    const userAnswers = new Array(questions.length).fill(null);
+    let isQuizCompleted = false;
+    let langMode = 'both';
+    let fontScale = 1;
+    let soundEnabled = true;
+    let currentFilter = 'all';
+    let audioCtx = null;
+
+    function saveQuizState() {
+      try {
+        const payload = {
+          currentIndex: currentIndex,
+          userAnswers: userAnswers,
+          completed: isQuizCompleted
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      } catch (e) {
+        // Ignore storage errors
+      }
+    }
+
+    function loadQuizState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data && Array.isArray(data.userAnswers) && data.userAnswers.length === questions.length) {
+          for (let i = 0; i < questions.length; i++) {
+            userAnswers[i] = data.userAnswers[i];
+          }
+        }
+        if (data && typeof data.currentIndex === 'number') {
+          currentIndex = Math.min(Math.max(0, data.currentIndex), questions.length - 1);
+        }
+        if (data && data.completed === true) {
+          isQuizCompleted = true;
+        }
+      } catch (e) {
+        // Ignore storage errors
+      }
+    }
+
+    function playTone(freq = 520, duration = 0.08, type = 'sine') {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Ignore audio errors
+      }
+    }
+
+    function renderQuestion() {
+      const q = questions[currentIndex];
+      const total = questions.length;
+      const pct = Math.round(((currentIndex + 1) / total) * 100);
+
+      document.getElementById('progressText').textContent =
+        `السؤال ${currentIndex + 1} من ${total} | Question ${currentIndex + 1} of ${total}`;
+      document.getElementById('progressPercent').textContent = `${pct}%`;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+
+      const qArEl = document.getElementById('qTextAr');
+      const qEnEl = document.getElementById('qTextEn');
+      qArEl.textContent = q.ar;
+      qEnEl.textContent = q.en;
+
+      qArEl.style.display = (langMode === 'en') ? 'none' : 'block';
+      qEnEl.style.display = (langMode === 'ar') ? 'none' : 'block';
+      qEnEl.style.borderTop = (langMode === 'both') ? '1px dashed rgba(148, 163, 184, 0.22)' : 'none';
+
+      document.getElementById('qCode').textContent = q.code;
+
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn' + (userAnswers[currentIndex] === idx ? ' selected' : '');
+
+        const letterSpan = document.createElement('span');
+        letterSpan.className = 'option-letter';
+        letterSpan.textContent = letters[idx];
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'option-content';
+
+        if (q.isCodeOptions) {
+          const codeSpan = document.createElement('div');
+          codeSpan.className = 'opt-code';
+          codeSpan.textContent = opt.ar;
+          contentDiv.appendChild(codeSpan);
+        } else {
+          if (langMode !== 'en') {
+            const arSpan = document.createElement('div');
+            arSpan.className = 'opt-ar';
+            arSpan.textContent = opt.ar;
+            contentDiv.appendChild(arSpan);
+          }
+          if (langMode !== 'ar') {
+            const enSpan = document.createElement('div');
+            enSpan.className = 'opt-en';
+            enSpan.textContent = opt.en;
+            contentDiv.appendChild(enSpan);
+          }
+        }
+
+        btn.appendChild(contentDiv);
+        btn.appendChild(letterSpan);
+
+        btn.addEventListener('click', () => {
+          if (isQuizCompleted) return;
+          userAnswers[currentIndex] = idx;
+          saveQuizState();
+          playTone(580, 0.07, 'triangle');
+          renderQuestion();
+        });
+
+        grid.appendChild(btn);
+      });
+
+      const nextBtn = document.getElementById('nextBtn');
+      nextBtn.disabled = userAnswers[currentIndex] === null;
+      if (currentIndex === total - 1) {
+        nextBtn.textContent = 'تسليم الاختبار نهائياً وعرض النتيجة / Submit Final Attempt ✔';
+      } else {
+        nextBtn.textContent = 'السؤال التالي / Next ⬅';
+      }
+    }
+
+    function triggerCardAnimation() {
+      const card = document.getElementById('questionCard');
+      card.style.animation = 'none';
+      void card.offsetWidth;
+      card.style.animation = 'cardSlideIn 0.42s cubic-bezier(0.22, 1, 0.36, 1)';
+    }
+
+    function showResults() {
+      isQuizCompleted = true;
+      saveQuizState();
+      document.getElementById('quizSection').style.display = 'none';
+      const resSec = document.getElementById('resultsSection');
+      resSec.style.display = 'block';
+
+      let correctCount = 0;
+      questions.forEach((q, i) => {
+        if (userAnswers[i] === q.correct) correctCount++;
+      });
+
+      const total = questions.length;
+      const wrongCount = total - correctCount;
+      const pct = Math.round((correctCount / total) * 100);
+      const deg = Math.round((correctCount / total) * 360);
+
+      document.getElementById('scoreCircle').style.setProperty('--score-deg', `${deg}deg`);
+      document.getElementById('scoreValue').textContent = `${correctCount} / ${total}`;
+      document.getElementById('correctCountPill').textContent = `إجابات صحيحة / Correct: ${correctCount}`;
+      document.getElementById('wrongCountPill').textContent = `إجابات خاطئة / Wrong: ${wrongCount}`;
+      document.getElementById('percentPill').textContent = `النسبة / Score: ${pct}%`;
+
+      const headline = document.getElementById('scoreHeadline');
+      const subtext = document.getElementById('scoreSubtext');
+      if (pct >= 85) {
+        headline.textContent = 'ممتاز جداً! أداء رائع 🌟 | Excellent Work!';
+        subtext.textContent = 'لقد أتقنت أساسيات بايثون في هذا الاختبار بنجاح كبير.';
+      } else if (pct >= 65) {
+        headline.textContent = 'جيد جداً! 👏 | Very Good!';
+        subtext.textContent = 'مستوى مميز، راجع الأسئلة بالأسفل لتثبيت جميع الأفكار.';
+      } else {
+        headline.textContent = 'بداية طيبة! راجع الإجابات بالأسفل 💡 | Keep Practicing!';
+        subtext.textContent = 'تصفح تصحيح الأسئلة والشرح التفصيلي بالأسفل للاستفادة الكاملة.';
+      }
+
+      playTone(660, 0.12, 'sine');
+      setTimeout(() => playTone(880, 0.18, 'sine'), 130);
+
+      renderReviewList();
+    }
+
+    function renderReviewList() {
+      const container = document.getElementById('reviewList');
+      container.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+
+      questions.forEach((q, idx) => {
+        const userChoice = userAnswers[idx];
+        const isCorrect = userChoice === q.correct;
+
+        if (currentFilter === 'correct' && !isCorrect) return;
+        if (currentFilter === 'wrong' && isCorrect) return;
+
+        const item = document.createElement('div');
+        item.className = `review-item ${isCorrect ? 'is-correct' : 'is-wrong'}`;
+
+        const userOpt = userChoice !== null ? q.options[userChoice] : { ar: 'لم يتم الاختيار', en: 'No answer' };
+        const rightOpt = q.options[q.correct];
+
+        const userText = (userChoice !== null)
+          ? (q.isCodeOptions ? `${letters[userChoice]}: ${userOpt.ar}` : `${letters[userChoice]}: ${userOpt.ar} (${userOpt.en})`)
+          : `${userOpt.ar} (${userOpt.en})`;
+
+        const rightText = q.isCodeOptions
+          ? `${letters[q.correct]}: ${rightOpt.ar}`
+          : `${letters[q.correct]}: ${rightOpt.ar} (${rightOpt.en})`;
+
+        item.innerHTML = `
+          <div class="review-header">
+            <strong>السؤال ${idx + 1} / Question ${idx + 1}</strong>
+            <span class="status-tag ${isCorrect ? 'ok' : 'err'}">
+              ${isCorrect ? '✔ إجابة صحيحة | Correct' : '✖ إجابة خاطئة | Incorrect'}
+            </span>
+          </div>
+          <div class="q-ar" style="font-size: 1.08rem;">${escapeHtml(q.ar)}</div>
+          <div class="q-en" style="font-size: 0.95rem; margin-bottom: 10px;">${escapeHtml(q.en)}</div>
+          <div class="code-container" style="margin: 10px 0;">
+            <pre class="code-snippet" style="padding: 12px 16px;">${escapeHtml(q.code)}</pre>
+          </div>
+          <div class="review-answers">
+            <div class="ans-box ${isCorrect ? 'right-ans' : 'student-wrong'}">
+              <div class="ans-label">إجابتك / Your Answer:</div>
+              <div dir="auto" style="font-weight: 700;">${escapeHtml(userText)}</div>
+            </div>
+            <div class="ans-box right-ans">
+              <div class="ans-label">الإجابة الصحيحة / Correct Answer:</div>
+              <div dir="auto" style="font-weight: 700;">${escapeHtml(rightText)}</div>
+            </div>
+          </div>
+          <div class="explanation-box">
+            <div><strong>الشرح:</strong> ${escapeHtml(q.expAr)}</div>
+            <div dir="ltr" style="margin-top: 4px; color: var(--text-muted);"><strong>Explanation:</strong> ${escapeHtml(q.expEn)}</div>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (isQuizCompleted || userAnswers[currentIndex] === null) return;
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        saveQuizState();
+        playTone(440, 0.08, 'sine');
+        triggerCardAnimation();
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    });
+
+    document.getElementById('langModeBtn').addEventListener('click', () => {
+      if (langMode === 'both') {
+        langMode = 'ar';
+        document.getElementById('langModeLabel').textContent = 'عربي فقط';
+      } else if (langMode === 'ar') {
+        langMode = 'en';
+        document.getElementById('langModeLabel').textContent = 'English Only';
+      } else {
+        langMode = 'both';
+        document.getElementById('langModeLabel').textContent = 'عربي + EN';
+      }
+      renderQuestion();
+    });
+
+    document.getElementById('fontPlusBtn').addEventListener('click', () => {
+      fontScale = Math.min(1.3, +(fontScale + 0.08).toFixed(2));
+      document.documentElement.style.setProperty('--font-scale', fontScale);
+    });
+
+    document.getElementById('fontMinusBtn').addEventListener('click', () => {
+      fontScale = Math.max(0.85, +(fontScale - 0.08).toFixed(2));
+      document.documentElement.style.setProperty('--font-scale', fontScale);
+    });
+
+    document.getElementById('soundToggleBtn').addEventListener('click', (e) => {
+      soundEnabled = !soundEnabled;
+      e.currentTarget.textContent = soundEnabled ? '🔊' : '🔇';
+    });
+
+    document.getElementById('themeToggleBtn').addEventListener('click', (e) => {
+      const root = document.documentElement;
+      const isLight = root.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        root.removeAttribute('data-theme');
+        e.currentTarget.textContent = '🌙';
+      } else {
+        root.setAttribute('data-theme', 'light');
+        e.currentTarget.textContent = '☀️';
+      }
+    });
+
+    document.querySelectorAll('.filter-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        renderReviewList();
+      });
+    });
+
+    loadQuizState();
+    if (isQuizCompleted) {
+      showResults();
+    } else {
+      renderQuestion();
+    }
+  </script>
+</body>
+</html>
