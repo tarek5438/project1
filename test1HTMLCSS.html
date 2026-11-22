@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اختبار</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --primary-border: #93c5fd;
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --success-border: #86efac;
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --danger-border: #fca5a5;
+      --warn: #b45309;
+      --warn-bg: #fffbeb;
+      --warn-border: #fcd34d;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px 14px 48px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .badge.locked {
+      background: var(--warn-bg);
+      color: var(--warn);
+      border-color: var(--warn-border);
+    }
+
+    /* Progress Bar */
+    .progress-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.94rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+      user-select: none;
+    }
+
+    .btn:hover:not(:disabled) {
+      background: var(--surface-alt);
+      border-color: var(--primary);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+
+    .btn-success {
+      background: var(--success);
+      border-color: var(--success);
+      color: #ffffff;
+    }
+
+    .btn-success:hover:not(:disabled) {
+      background: #166534;
+      border-color: #166534;
+    }
+
+    .btn-sm {
+      padding: 7px 13px;
+      font-size: 0.85rem;
+    }
+
+    /* Palette */
+    .palette-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .palette-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+      gap: 6px;
+    }
+
+    .q-dot {
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-alt);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .q-dot:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .q-dot.answered {
+      background: var(--primary-soft);
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+
+    .q-dot.current {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.22);
+    }
+
+    /* Question Card */
+    .question-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .q-number {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .q-status {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .q-status.done {
+      color: var(--primary);
+    }
+
+    .q-text-ar {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.65;
+    }
+
+    .q-text-en {
+      direction: ltr;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 10px 14px;
+      background: var(--surface-alt);
+      border-left: 3px solid var(--primary);
+      border-radius: 8px;
+      margin-bottom: 18px;
+      line-height: 1.55;
+    }
+
+    code {
+      font-family: Consolas, 'Courier New', monospace;
+      direction: ltr;
+      unicode-bidi: isolate;
+      display: inline-block;
+      background: #e2e8f0;
+      color: #0f172a;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-size: 0.9em;
+      font-weight: 700;
+    }
+
+    /* Options */
+    .options-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: right;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 16px;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary-border);
+      background: var(--surface-alt);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .opt-letter {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border-strong);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.88rem;
+      margin-top: 2px;
+    }
+
+    .option-btn.selected .opt-letter {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .opt-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .opt-ar {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .opt-en {
+      direction: ltr;
+      text-align: left;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    /* Navigation Bar */
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Result Section */
+    .result-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .score-circle {
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-soft);
+      border: 6px solid var(--primary);
+    }
+
+    .score-circle.high {
+      background: var(--success-bg);
+      border-color: var(--success);
+    }
+
+    .score-circle.low {
+      background: var(--danger-bg);
+      border-color: var(--danger);
+    }
+
+    .score-pct {
+      font-size: 1.9rem;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .score-frac {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .result-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .result-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .stat-box {
+      padding: 14px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+    }
+
+    .stat-box.correct {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+      color: var(--success);
+    }
+
+    .stat-box.wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: var(--danger);
+    }
+
+    .stat-val {
+      font-size: 1.5rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .stat-lbl {
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    /* Wrong Answers Review */
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 24px 0 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .review-header h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--danger);
+    }
+
+    .review-card {
+      background: var(--surface);
+      border: 1px solid var(--danger-border);
+      border-right: 5px solid var(--danger);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .ans-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .ans-box {
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .ans-box.user-wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+    }
+
+    .ans-box.right-ans {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+    }
+
+    .ans-tag {
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .ans-box.user-wrong .ans-tag {
+      color: var(--danger);
+    }
+
+    .ans-box.right-ans .ans-tag {
+      color: var(--success);
+    }
+
+    .exp-box {
+      margin-top: 12px;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .exp-en {
+      direction: ltr;
+      text-align: left;
+      margin-top: 4px;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .perfect-box {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success);
+      border-radius: var(--radius);
+      padding: 22px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      max-width: 440px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+      border: 1px solid var(--border);
+    }
+
+    .modal-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .modal-card p {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .modal-warn {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: var(--warn);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pin-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      direction: ltr;
+      text-align: center;
+      letter-spacing: 0.2em;
+    }
+
+    .pin-error {
+      color: var(--danger);
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-top: 6px;
+      min-height: 20px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .unlock-trigger {
+      background: transparent;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      opacity: 0.55;
+      transition: opacity 0.15s;
+    }
+
+    .unlock-trigger:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        padding: 16px;
+      }
+      .question-card {
+        padding: 18px 14px;
+      }
+      .ans-compare {
+        grid-template-columns: 1fr;
+      }
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>اختبار</h1>
+      <div class="header-controls">
+        <span id="attemptBadge" class="badge">محاولة واحدة فقط • 50 سؤال</span>
+        <button id="toggleViewBtn" class="btn btn-sm" type="button">عرض جميع الأسئلة</button>
+      </div>
+    </header>
+
+    <!-- Quiz View -->
+    <main id="quizSection">
+      <section class="progress-wrap">
+        <div class="progress-top">
+          <span id="progressLabel">تمت الإجابة على 0 من 50 سؤال</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </section>
+
+      <section id="paletteCard" class="palette-card">
+        <div class="palette-head">
+          <span>التنقل السريع بين الأسئلة / Quick Navigation</span>
+          <span id="currentIndicator">سؤال 1 / 50</span>
+        </div>
+        <div id="paletteGrid" class="palette-grid"></div>
+      </section>
+
+      <div id="questionsContainer"></div>
+
+      <nav class="nav-bar">
+        <div id="singleNavGroup" class="nav-group">
+          <button id="prevBtn" class="btn" type="button">السابق / Previous</button>
+          <button id="nextBtn" class="btn btn-primary" type="button">التالي / Next</button>
+        </div>
+        <button id="submitBtn" class="btn btn-success" type="button">إنهاء وتسليم الاختبار / Submit Exam</button>
+      </nav>
+    </main>
+
+    <!-- Result View -->
+    <section id="resultSection" class="hidden">
+      <div class="result-banner">
+        <div id="scoreCircle" class="score-circle">
+          <div id="scorePct" class="score-pct">0%</div>
+          <div id="scoreFrac" class="score-frac">0 / 50</div>
+        </div>
+        <div id="resultTitle" class="result-title">نتيجة الاختبار</div>
+        <div id="resultSub" class="result-sub">تم إغلاق الاختبار بعد استخدام المحاولة الوحيدة المتاحة.</div>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-val">50</div>
+            <div class="stat-lbl">إجمالي الأسئلة / Total</div>
+          </div>
+          <div class="stat-box correct">
+            <div id="correctCount" class="stat-val">0</div>
+            <div class="stat-lbl">إجابات صحيحة / Correct</div>
+          </div>
+          <div class="stat-box wrong">
+            <div id="wrongCount" class="stat-val">0</div>
+            <div class="stat-lbl">إجابات خاطئة / Wrong</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="wrongReviewSection"></div>
+    </section>
+
+    <footer class="footer">
+      <button id="unlockBtn" class="unlock-trigger" type="button" title="إعادة تعيين بواسطة المعلم">&#128274;</button>
+    </footer>
+  </div>
+
+  <!-- Submit Confirmation Modal -->
+  <div id="submitModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="submitModalTitle">
+    <div class="modal-card">
+      <h3 id="submitModalTitle">تأكيد تسليم الاختبار / Confirm Submission</h3>
+      <p id="submitModalText"></p>
+      <div id="submitModalWarn" class="modal-warn hidden"></div>
+      <p style="font-size:0.86rem; margin-bottom:0;">تنبيه: لديك فرصة واحدة فقط، ولن تتمكن من تعديل الإجابات أو إعادة الاختبار بعد التسليم.</p>
+      <div class="modal-actions">
+        <button id="cancelSubmitBtn" class="btn" type="button">مراجعة / Review</button>
+        <button id="confirmSubmitBtn" class="btn btn-success" type="button">تسليم نهائي / Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instructor Unlock Modal -->
+  <div id="unlockModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="unlockModalTitle">
+    <div class="modal-card">
+      <h3 id="unlockModalTitle">إعادة تعيين الاختبار (للمعلم)</h3>
+      <p>أدخل رمز المعلم لإعادة فتح الاختبار على هذا الجهاز:</p>
+      <input id="pinInput" class="pin-input" type="password" placeholder="****" autocomplete="off">
+      <div id="pinError" class="pin-error"></div>
+      <div class="modal-actions">
+        <button id="cancelUnlockBtn" class="btn" type="button">إلغاء</button>
+        <button id="confirmUnlockBtn" class="btn btn-primary" type="button">فتح الاختبار</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'html_css_exam_50_locked_v1';
+      const INSTRUCTOR_PIN = '1234';
+      const LETTERS = ['A', 'B', 'C', 'D'];
+
+      const QUESTIONS = [
+        // --- Lesson 1 (6 questions) ---
+        {
+          id: 1,
+          ar: 'ما وظيفة السطر `<!DOCTYPE html>` في بداية صفحة الويب؟',
+          en: 'What is the purpose of `<!DOCTYPE html>` at the start of a web page?',
+          options: [
+            { ar: 'تحديد عنوان الصفحة في المتصفح', en: 'Sets the page title in the browser tab' },
+            { ar: 'إخبار المتصفح أن المستند مكتوب بلغة HTML5', en: 'Tells the browser the document uses HTML5' },
+            { ar: 'ربط ملف تنسيقات CSS خارجي بالصفحة', en: 'Links an external CSS stylesheet to the page' },
+            { ar: 'إنشاء تعليق مخفي لا يظهر للمستخدم', en: 'Creates a hidden comment ignored by users' }
+          ],
+          answer: 1,
+          expAr: 'التصريح `<!DOCTYPE html>` يخبر المتصفح أن الصفحة تستخدم معيار HTML5.',
+          expEn: '`<!DOCTYPE html>` tells the browser to parse the document as HTML5.'
+        },
+        {
+          id: 2,
+          ar: 'أي وسم يُستخدم لتحديد ترميز الأحرف `UTF-8` حتى يدعم المتصفح اللغات المختلفة مثل العربية؟',
+          en: 'Which tag specifies `UTF-8` character encoding so the browser supports multiple languages?',
+          options: [
+            { ar: '`<meta charset="UTF-8">`', en: '`<meta charset="UTF-8">`' },
+            { ar: '`<title charset="UTF-8">`', en: '`<title charset="UTF-8">`' },
+            { ar: '`<link charset="UTF-8">`', en: '`<link charset="UTF-8">`' },
+            { ar: '`<head charset="UTF-8">`', en: '`<head charset="UTF-8">`' }
+          ],
+          answer: 0,
+          expAr: 'الوسم `<meta charset="UTF-8">` يحدد ترميز الحروف داخل قسم `<head>`.',
+          expEn: '`<meta charset="UTF-8">` declares the UTF-8 character encoding inside `<head>`.'
+        },
+        {
+          id: 3,
+          ar: 'أين يظهر النص المكتوب داخل الوسم `<title>Lesson1</title>`؟',
+          en: 'Where does the text inside `<title>Lesson1</title>` appear?',
+          options: [
+            { ar: 'كعنوان رئيسي كبير داخل الصفحة', en: 'As a large main heading inside the page' },
+            { ar: 'أسفل الصفحة في شريط التذييل', en: 'At the bottom of the page in the footer' },
+            { ar: 'في شريط التبويب الخاص بالمتصفح', en: 'In the browser tab title bar' },
+            { ar: 'داخل قائمة منسدلة في النموذج', en: 'Inside a dropdown list in a form' }
+          ],
+          answer: 2,
+          expAr: 'الوسم `<title>` يحدد عنوان الصفحة الذي يظهر في تبويب المتصفح.',
+          expEn: 'The `<title>` element sets the title shown in the browser tab.'
+        },
+        {
+          id: 4,
+          ar: 'أي جزء من صفحة HTML يحتوي على المحتوى المرئي الذي يراه المستخدم على الشاشة؟',
+          en: 'Which section of an HTML document contains the visible content shown on the screen?',
+          options: [
+            { ar: 'الوسم `<head>` فقط', en: 'The `<head>` element only' },
+            { ar: 'الوسم `<meta>` فقط', en: 'The `<meta>` element only' },
+            { ar: 'الوسم `<link>` فقط', en: 'The `<link>` element only' },
+            { ar: 'الوسم `<body>` فقط', en: 'The `<body>` element only' }
+          ],
+          answer: 3,
+          expAr: 'كل العناصر المرئية مثل العناوين والفقرات والجداول توضع داخل `<body>`.',
+          expEn: 'All visible content such as headings, paragraphs, and tables goes inside `<body>`.'
+        },
+        {
+          id: 5,
+          ar: 'ما فائدة السمة `lang="en"` في الوسم `<html lang="en">`؟',
+          en: 'What is the purpose of the `lang="en"` attribute in `<html lang="en">`?',
+          options: [
+            { ar: 'تغيير لون خلفية الصفحة بالكامل', en: 'Changes the background color of the whole page' },
+            { ar: 'تحديد اللغة الأساسية لمحتوى الصفحة', en: 'Specifies the primary language of the page' },
+            { ar: 'تكبير حجم الخط في جميع العناوين', en: 'Increases the font size of all headings' },
+            { ar: 'تفعيل خاصية التمرير الأفقي للصفحة', en: 'Enables horizontal scrolling on the page' }
+          ],
+          answer: 1,
+          expAr: 'السمة `lang` تحدد لغة المستند للمتصفحات ومحركات البحث وقارئات الشاشة.',
+          expEn: 'The `lang` attribute declares the document language for browsers and accessibility tools.'
+        },
+        {
+          id: 6,
+          ar: 'ما الدور الرئيسي للوسم `<meta name="viewport" content="width=device-width, initial-scale=1.0">`؟',
+          en: 'What is the main role of `<meta name="viewport" content="width=device-width, initial-scale=1.0">`?',
+          options: [
+            { ar: 'ضبط عرض الصفحة لتتناسب مع مقاسات الشاشات', en: 'Adjusts page width and scaling for device screens' },
+            { ar: 'إضافة صورة خلفية متكررة لصفحة الويب', en: 'Adds a repeating background image to the page' },
+            { ar: 'تحويل جميع العناصر إلى عناصر سطرية', en: 'Converts all elements into inline elements' },
+            { ar: 'حماية كلمة المرور داخل حقول الإدخال', en: 'Protects passwords inside input fields' }
+          ],
+          answer: 0,
+          expAr: 'وسم `viewport` يضبط عرض الصفحة ومستوى التكبير لتظهر بشكل متجاوب على مختلف الأجهزة.',
+          expEn: 'The viewport meta tag sets the width and initial zoom level for responsive display.'
+        },
+
+        // --- Lesson 2 (11 questions) ---
+        {
+          id: 7,
+          ar: 'أي وسم يمثل أصغر مستوى عنوان في لغة HTML؟',
+          en: 'Which tag represents the smallest heading level in HTML?',
+          options: [
+            { ar: 'الوسم `<h1>`', en: 'The `<h1>` tag' },
+            { ar: 'الوسم `<h3>`', en: 'The `<h3>` tag' },
+            { ar: 'الوسم `<h6>`', en: 'The `<h6>` tag' },
+            { ar: 'الوسم `<p>`', en: 'The `<p>` tag' }
+          ],
+          answer: 2,
+          expAr: 'تتدرج العناوين من `<h1>` الأكبر والأهم إلى `<h6>` الأصغر.',
+          expEn: 'HTML headings range from `<h1>` (largest/highest) down to `<h6>` (smallest).'
+        },
+        {
+          id: 8,
+          ar: 'كيف نكتب تعليقاً (Comment) في لغة HTML بحيث يتجاهله المتصفح؟',
+          en: 'How do you write a comment in HTML so the browser ignores it?',
+          options: [
+            { ar: '`/* تعليق هنا */`', en: '`/* comment here */`' },
+            { ar: '`// تعليق هنا`', en: '`// comment here`' },
+            { ar: '`# تعليق هنا #`', en: '`# comment here #`' },
+            { ar: '`<!-- تعليق هنا -->`', en: '`<!-- comment here -->`' }
+          ],
+          answer: 3,
+          expAr: 'تُكتب التعليقات في HTML بين `<!--` و `-->` بينما `/* */` تُستخدم في CSS.',
+          expEn: 'HTML comments use `<!-- ... -->`, whereas `/* ... */` is used in CSS.'
+        },
+        {
+          id: 9,
+          ar: 'أي وسم يُستخدم لإنشاء فقرة نصية في HTML؟',
+          en: 'Which tag is used to create a text paragraph in HTML?',
+          options: [
+            { ar: 'الوسم `<p>`', en: 'The `<p>` tag' },
+            { ar: 'الوسم `<br>`', en: 'The `<br>` tag' },
+            { ar: 'الوسم `<li>`', en: 'The `<li>` tag' },
+            { ar: 'الوسم `<td>`', en: 'The `<td>` tag' }
+          ],
+          answer: 0,
+          expAr: 'الوسم `<p>` اختصار لكلمة Paragraph ويُستخدم لإنشاء الفقرات النصية.',
+          expEn: '`<p>` stands for paragraph and defines a block of text.'
+        },
+        {
+          id: 10,
+          ar: 'ما الفرق بين الوسم `<b>` والوسم `<strong>`؟',
+          en: 'What is the difference between the `<b>` tag and the `<strong>` tag?',
+          options: [
+            { ar: '`<b>` يجعل النص مائلاً و `<strong>` يجعله مسطراً', en: '`<b>` makes text italic and `<strong>` underlines it' },
+            { ar: '`<b>` للتنسيق العريض فقط بينما `<strong>` يدل على أهمية النص', en: '`<b>` is visual bold only while `<strong>` adds semantic importance' },
+            { ar: '`<b>` يُستخدم للجداول فقط و `<strong>` للقوائم فقط', en: '`<b>` is for tables only and `<strong>` is for lists only' },
+            { ar: '`<b>` ينشئ سطراً جديداً و `<strong>` يحذف المسافات', en: '`<b>` adds a line break and `<strong>` removes spaces' }
+          ],
+          answer: 1,
+          expAr: 'كلاهما يعرض النص بخط عريض، لكن `<strong>` يحمل معنى دلالياً يشير إلى أهمية النص.',
+          expEn: 'Both render bold text, but `<strong>` also indicates strong semantic importance.'
+        },
+        {
+          id: 11,
+          ar: 'أي وسمين يجعلان النص مائلاً (Italic) في HTML؟',
+          en: 'Which two tags display text in italics in HTML?',
+          options: [
+            { ar: '`<b>` و `<strong>`', en: '`<b>` and `<strong>`' },
+            { ar: '`<sup>` و `<sub>`', en: '`<sup>` and `<sub>`' },
+            { ar: '`<i>` و `<em>`', en: '`<i>` and `<em>`' },
+            { ar: '`<ul>` و `<ol>`', en: '`<ul>` and `<ol>`' }
+          ],
+          answer: 2,
+          expAr: 'الوسم `<i>` يجعل النص مائلاً شكلياً، والوسم `<em>` يجعله مائلاً مع تأكيد دلالي.',
+          expEn: '`<i>` styles text in italics and `<em>` emphasizes text in italics.'
+        },
+        {
+          id: 12,
+          ar: 'أي كود HTML يعرض الصيغة الرياضية x² بشكل صحيح؟',
+          en: 'Which HTML code correctly displays the mathematical expression x²?',
+          options: [
+            { ar: '`x<sub>2</sub>`', en: '`x<sub>2</sub>`' },
+            { ar: '`x<sup>2</sup>`', en: '`x<sup>2</sup>`' },
+            { ar: '`x<em>2</em>`', en: '`x<em>2</em>`' },
+            { ar: '`x<br>2`', en: '`x<br>2`' }
+          ],
+          answer: 1,
+          expAr: 'الوسم `<sup>` (Superscript) يرفع النص لأعلى السطر مثل الأسس الرياضية.',
+          expEn: '`<sup>` renders superscript text above the baseline, such as exponents.'
+        },
+        {
+          id: 13,
+          ar: 'أي كود HTML يعرض الصيغة الكيميائية H₂O بشكل صحيح؟',
+          en: 'Which HTML code correctly displays the chemical formula H₂O?',
+          options: [
+            { ar: '`H<sup>2</sup>O`', en: '`H<sup>2</sup>O`' },
+            { ar: '`H<i>2</i>O`', en: '`H<i>2</i>O`' },
+            { ar: '`H<b>2</b>O`', en: '`H<b>2</b>O`' },
+            { ar: '`H<sub>2</sub>O`', en: '`H<sub>2</sub>O`' }
+          ],
+          answer: 3,
+          expAr: 'الوسم `<sub>` (Subscript) ينزل النص أسفل السطر كما في الصيغ الكيميائية.',
+          expEn: '`<sub>` renders subscript text below the baseline, as in chemical formulas.'
+        },
+        {
+          id: 14,
+          ar: 'ما وظيفة الوسم `<br>` في HTML؟',
+          en: 'What is the function of the `<br>` tag in HTML?',
+          options: [
+            { ar: 'إدراج فاصل سطر للانتقال إلى سطر جديد', en: 'Inserts a line break to move to a new line' },
+            { ar: 'جعل النص عريضاً ومميزاً في الفقرة', en: 'Makes text bold and highlighted in a paragraph' },
+            { ar: 'رسم إطار خارجي حول العنصر الحالي', en: 'Draws an outer border around the element' },
+            { ar: 'إنشاء قائمة مرتبة بأرقام متسلسلة', en: 'Creates a numbered ordered list' }
+          ],
+          answer: 0,
+          expAr: 'الوسم `<br>` هو وسم مفرد ينشئ سطراً جديداً داخل النص.',
+          expEn: '`<br>` is a void tag that inserts a single line break.'
+        },
+        {
+          id: 15,
+          ar: 'أي وسم يُستخدم لإنشاء قائمة غير مرتبة تظهر بنقاط (Bullets)؟',
+          en: 'Which tag is used to create an unordered bulleted list?',
+          options: [
+            { ar: 'الوسم `<ol>`', en: 'The `<ol>` tag' },
+            { ar: 'الوسم `<ul>`', en: 'The `<ul>` tag' },
+            { ar: 'الوسم `<dl>`', en: 'The `<dl>` tag' },
+            { ar: 'الوسم `<tr>`', en: 'The `<tr>` tag' }
+          ],
+          answer: 1,
+          expAr: 'الوسم `<ul>` اختصار لـ Unordered List ويُستخدم للقوائم النقطية.',
+          expEn: '`<ul>` stands for Unordered List and displays items with bullet points.'
+        },
+        {
+          id: 16,
+          ar: 'أي وسم يُستخدم لإنشاء قائمة مرتبة بأرقام (1, 2, 3...)؟',
+          en: 'Which tag is used to create a numbered ordered list (1, 2, 3...)?',
+          options: [
+            { ar: 'الوسم `<ul>`', en: 'The `<ul>` tag' },
+            { ar: 'الوسم `<li>`', en: 'The `<li>` tag' },
+            { ar: 'الوسم `<ol>`', en: 'The `<ol>` tag' },
+            { ar: 'الوسم `<select>`', en: 'The `<select>` tag' }
+          ],
+          answer: 2,
+          expAr: 'الوسم `<ol>` اختصار لـ Ordered List ويرقّم العناصر تلقائياً.',
+          expEn: '`<ol>` stands for Ordered List and numbers its items automatically.'
+        },
+        {
+          id: 17,
+          ar: 'أي وسم يمثل عنصراً واحداً داخل القائمة سواء كانت `<ul>` أو `<ol>`؟',
+          en: 'Which tag defines a single list item inside either `<ul>` or `<ol>`?',
+          options: [
+            { ar: 'الوسم `<option>`', en: 'The `<option>` tag' },
+            { ar: 'الوسم `<td>`', en: 'The `<td>` tag' },
+            { ar: 'الوسم `<span>`', en: 'The `<span>` tag' },
+            { ar: 'الوسم `<li>`', en: 'The `<li>` tag' }
+          ],
+          answer: 3,
+          expAr: 'الوسم `<li>` اختصار لـ List Item ويوضع داخل `<ul>` أو `<ol>`.',
+          expEn: '`<li>` stands for List Item and is placed inside `<ul>` or `<ol>`.'
+        },
+
+        // --- Lesson 3 (13 questions) ---
+        {
+          id: 18,
+          ar: 'أي قيمة للسمة `type` في `<input>` تُخفي الأحرف المكتوبة كنقاط أو نجوم؟',
+          en: 'Which `type` attribute value on `<input>` masks typed characters as dots or asterisks?',
+          options: [
+            { ar: '`type="password"`', en: '`type="password"`' },
+            { ar: '`type="text"`', en: '`type="text"`' },
+            { ar: '`type="checkbox"`', en: '`type="checkbox"`' },
+            { ar: '`type="color"`', en: '`type="color"`' }
+          ],
+          answer: 0,
+          expAr: 'الحقل `<input type="password">` يخفي كلمة المرور أثناء الكتابة.',
+          expEn: '`<input type="password">` hides entered characters for password privacy.'
+        },
+        {
+          id: 19,
+          ar: 'أي حقل إدخال يسمح للمستخدم باختيار تاريخ من تقويم جاهز؟',
+          en: 'Which input field allows the user to pick a date from a calendar?',
+          options: [
+            { ar: '`<input type="number">`', en: '`<input type="number">`' },
+            { ar: '`<input type="date">`', en: '`<input type="date">`' },
+            { ar: '`<input type="text">`', en: '`<input type="text">`' },
+            { ar: '`<input type="color">`', en: '`<input type="color">`' }
+          ],
+          answer: 1,
+          expAr: 'النوع `date` يعرض أداة اختيار التاريخ في المتصفح.',
+          expEn: '`<input type="date">` provides a built-in browser date picker.'
+        },
+        {
+          id: 20,
+          ar: 'ما النتيجة عند استخدام `<input type="checkbox">` في النموذج؟',
+          en: 'What does `<input type="checkbox">` display in a form?',
+          options: [
+            { ar: 'قائمة منسدلة لاختيار عنصر واحد', en: 'A dropdown list to pick one item' },
+            { ar: 'أداة اختيار لون من لوحة الألوان', en: 'A color picker from a color palette' },
+            { ar: 'مربع اختيار يمكن تحديده أو إلغاء تحديده', en: 'A checkable box that can be toggled on or off' },
+            { ar: 'حقل نصي لإدخال الأرقام فقط', en: 'A text box that accepts numbers only' }
+          ],
+          answer: 2,
+          expAr: 'النوع `checkbox` ينشئ مربع اختيار يمكن تفعيله أو إلغاؤه.',
+          expEn: '`type="checkbox"` creates a toggleable square checkbox.'
+        },
+        {
+          id: 21,
+          ar: 'أي نوع من `<input>` يعرض أداة اختيار الألوان (Color Picker)؟',
+          en: 'Which `<input>` type displays a color picker tool?',
+          options: [
+            { ar: '`type="date"`', en: '`type="date"`' },
+            { ar: '`type="number"`', en: '`type="number"`' },
+            { ar: '`type="password"`', en: '`type="password"`' },
+            { ar: '`type="color"`', en: '`type="color"`' }
+          ],
+          answer: 3,
+          expAr: 'الحقل `<input type="color">` يفتح منتقي الألوان لاختيار لون.',
+          expEn: '`<input type="color">` renders a browser color picker control.'
+        },
+        {
+          id: 22,
+          ar: 'كيف نربط الوسم `<label>` بحقل `<input>` معين بحيث يؤدي النقر على النص إلى تنشيط الحقل؟',
+          en: 'How do you link a `<label>` to a specific `<input>` so clicking the label focuses the field?',
+          options: [
+            { ar: 'بتطابق قيمة `for` في `<label>` مع قيمة `id` في `<input>`', en: 'By matching `for` on `<label>` with `id` on `<input>`' },
+            { ar: 'بتطابق قيمة `href` في `<label>` مع قيمة `src` في `<input>`', en: 'By matching `href` on `<label>` with `src` on `<input>`' },
+            { ar: 'بتطابق قيمة `type` في `<label>` مع قيمة `border` في `<input>`', en: 'By matching `type` on `<label>` with `border` on `<input>`' },
+            { ar: 'بوضع `<label>` داخل وسم `<table>` فقط', en: 'By placing `<label>` inside a `<table>` tag only' }
+          ],
+          answer: 0,
+          expAr: 'عندما تتطابق قيمة `for` في `<label>` مع `id` في `<input>` يرتبطان معاً.',
+          expEn: 'Matching `<label for="a">` with `<input id="a">` associates the label with the input.'
+        },
+        {
+          id: 23,
+          ar: 'ما وظيفة الوسم `<form>` في صفحة HTML؟',
+          en: 'What is the purpose of the `<form>` element in HTML?',
+          options: [
+            { ar: 'عرض البيانات في صفوف وأعمدة منظمة', en: 'Displays data in organized rows and columns' },
+            { ar: 'تجميع حقول الإدخال والأزرار لإرسال بيانات المستخدم', en: 'Groups input fields and buttons to submit user data' },
+            { ar: 'تطبيق تدرج لوني دائري على الصفحة', en: 'Applies a radial color gradient to the page' },
+            { ar: 'إنشاء قائمة نقطية من العناصر المتتالية', en: 'Creates a bulleted list of sequential items' }
+          ],
+          answer: 1,
+          expAr: 'الوسم `<form>` يجمع حقول الإدخال مثل `<input>` و `<button>` لإرسال البيانات.',
+          expEn: '`<form>` acts as a container for user inputs and submit buttons.'
+        },
+        {
+          id: 24,
+          ar: 'عند كتابة عنصرين `<span>Hello</span>` و `<span>Welcome</span>`، كيف يظهران على الصفحة؟',
+          en: 'When writing `<span>Hello</span>` and `<span>Welcome</span>`, how do they appear on the page?',
+          options: [
+            { ar: 'كل عنصر في سطر منفصل لأنه عنصر Block', en: 'Each on a separate line because it is a block element' },
+            { ar: 'داخل جدول بحدود سميكة تلقائياً', en: 'Inside a table with thick borders automatically' },
+            { ar: 'بجانب بعضهما في نفس السطر لأنه عنصر Inline', en: 'Side by side on the same line because it is an inline element' },
+            { ar: 'لا يظهران نهائياً على الصفحة', en: 'They do not appear on the page at all' }
+          ],
+          answer: 2,
+          expAr: 'الوسم `<span>` هو عنصر سطري (Inline) لذلك يظهر بجانب العناصر الأخرى في نفس السطر.',
+          expEn: '`<span>` is an inline element, so adjacent spans stay on the same line.'
+        },
+        {
+          id: 25,
+          ar: 'أي من العناصر التالية يُعد عنصراً كتلياً (Block Element) يبدأ في سطر جديد تلقائياً؟',
+          en: 'Which of the following is a block element that starts on a new line automatically?',
+          options: [
+            { ar: 'الوسم `<span>`', en: 'The `<span>` tag' },
+            { ar: 'الوسم `<b>`', en: 'The `<b>` tag' },
+            { ar: 'الوسم `<i>`', en: 'The `<i>` tag' },
+            { ar: 'الوسم `<h2>`', en: 'The `<h2>` tag' }
+          ],
+          answer: 3,
+          expAr: 'العناوين مثل `<h2>` هي عناصر كتلية (Block) تأخذ السطر بالكامل وتبدأ في سطر جديد.',
+          expEn: 'Headings like `<h2>` are block-level elements that start on a new line.'
+        },
+        {
+          id: 26,
+          ar: 'أي وسمين يُستخدمان معاً لإنشاء قائمة منسدلة (Dropdown List) في HTML؟',
+          en: 'Which two tags are used together to create a dropdown list in HTML?',
+          options: [
+            { ar: '`<select>` و `<option>`', en: '`<select>` and `<option>`' },
+            { ar: '`<ul>` و `<li>`', en: '`<ul>` and `<li>`' },
+            { ar: '`<thead>` و `<tbody>`', en: '`<thead>` and `<tbody>`' },
+            { ar: '`<form>` و `<label>`', en: '`<form>` and `<label>`' }
+          ],
+          answer: 0,
+          expAr: 'تُنشأ القائمة المنسدلة بوسم `<select>` وتُضاف الخيارات بوسم `<option>`.',
+          expEn: '`<select>` creates the dropdown container and `<option>` defines each choice.'
+        },
+        {
+          id: 27,
+          ar: 'ما وظيفة الوسم `<tr>` داخل الجدول `<table>`؟',
+          en: 'What is the purpose of the `<tr>` tag inside a `<table>`?',
+          options: [
+            { ar: 'إنشاء خلية عنوان غامقة في الجدول', en: 'Creates a bold header cell in the table' },
+            { ar: 'إنشاء صف جديد داخل الجدول', en: 'Creates a new row inside the table' },
+            { ar: 'تحديد سمك حدود الجدول بالبكسل', en: 'Sets the table border width in pixels' },
+            { ar: 'تجميع محتوى جسم الجدول بالكامل', en: 'Groups the entire table body content' }
+          ],
+          answer: 1,
+          expAr: 'الوسم `<tr>` اختصار لـ Table Row ويُستخدم لإنشاء كل صف في الجدول.',
+          expEn: '`<tr>` stands for Table Row and defines a row of cells.'
+        },
+        {
+          id: 28,
+          ar: 'ما الفرق بين `<th>` و `<td>` داخل صف الجدول؟',
+          en: 'What is the difference between `<th>` and `<td>` inside a table row?',
+          options: [
+            { ar: '`<th>` لإنشاء صف و `<td>` لإنشاء عمود', en: '`<th>` creates a row and `<td>` creates a column' },
+            { ar: '`<th>` للحذف و `<td>` لإضافة صورة', en: '`<th>` deletes data and `<td>` inserts an image' },
+            { ar: '`<th>` لخلية عنوان العمود و `<td>` لخلية البيانات العادية', en: '`<th>` is a header cell and `<td>` is a regular data cell' },
+            { ar: '`<th>` يُستخدم خارج الجدول و `<td>` داخله', en: '`<th>` is used outside tables and `<td>` inside them' }
+          ],
+          answer: 2,
+          expAr: 'الوسم `<th>` يمثل خلية رأس الجدول (Table Header) و `<td>` يمثل خلية البيانات (Table Data).',
+          expEn: '`<th>` defines a table header cell (bold/centered by default), while `<td>` defines standard table data.'
+        },
+        {
+          id: 29,
+          ar: 'أي وسمين يُستخدمان لتقسيم الجدول إلى جزء للعناوين وجزء للبيانات؟',
+          en: 'Which two tags separate a table into a header section and a body section?',
+          options: [
+            { ar: '`<head>` و `<body>`', en: '`<head>` and `<body>`' },
+            { ar: '`<th>` و `<td>`', en: '`<th>` and `<td>`' },
+            { ar: '`<tr>` و `<table>`', en: '`<tr>` and `<table>`' },
+            { ar: '`<thead>` و `<tbody>`', en: '`<thead>` and `<tbody>`' }
+          ],
+          answer: 3,
+          expAr: 'الوسم `<thead>` يضم صفوف رؤوس الجدول و `<tbody>` يضم صفوف البيانات.',
+          expEn: '`<thead>` groups header rows and `<tbody>` groups the main data rows of a table.'
+        },
+        {
+          id: 30,
+          ar: 'ما وظيفة السمة `border="5"` في الوسم `<table border="5">`؟',
+          en: 'What does the `border="5"` attribute do in `<table border="5">`?',
+          options: [
+            { ar: 'إضافة حدود ظاهرة حول الجدول وخلاياه بسمك 5', en: 'Adds visible borders of width 5 around the table and cells' },
+            { ar: 'تحديد عدد صفوف الجدول ليكون 5 صفوف', en: 'Sets the number of table rows to 5 rows' },
+            { ar: 'تحديد عدد أعمدة الجدول ليكون 5 أعمدة', en: 'Sets the number of table columns to 5 columns' },
+            { ar: 'إضافة مسافة هامش خارجي بمقدار 5 أضعاف', en: 'Adds an outer margin of 5 times the size' }
+          ],
+          answer: 0,
+          expAr: 'السمة `border="5"` تظهر إطاراً للجدول وخلاياه بسمك 5 بكسل.',
+          expEn: '`border="5"` displays a 5px border around the table and its cells.'
+        },
+
+        // --- Lesson 7 (8 questions) ---
+        {
+          id: 31,
+          ar: 'ما الطريقة الصحيحة لربط ملف CSS خارجي اسمه `lesson7.css` بصفحة HTML؟',
+          en: 'What is the correct way to link an external CSS file named `lesson7.css` to an HTML page?',
+          options: [
+            { ar: '`<style src="lesson7.css">`', en: '`<style src="lesson7.css">`' },
+            { ar: '`<link rel="stylesheet" href="lesson7.css">`', en: '`<link rel="stylesheet" href="lesson7.css">`' },
+            { ar: '`<css href="lesson7.css">`', en: '`<css href="lesson7.css">`' },
+            { ar: '`<img rel="stylesheet" src="lesson7.css">`', en: '`<img rel="stylesheet" src="lesson7.css">`' }
+          ],
+          answer: 1,
+          expAr: 'يُربط ملف CSS الخارجي داخل `<head>` باستخدام `<link rel="stylesheet" href="...">`.',
+          expEn: 'External CSS files are linked inside `<head>` with `<link rel="stylesheet" href="...">`.'
+        },
+        {
+          id: 32,
+          ar: 'أي خاصية CSS تُستخدم لتعيين صورة كخلفية لعنصر `<div>`؟',
+          en: 'Which CSS property sets an image as the background of a `<div>` element?',
+          options: [
+            { ar: '`background-color: url(\'cata.jfif\');`', en: '`background-color: url(\'cata.jfif\');`' },
+            { ar: '`border-image: \'cata.jfif\';`', en: '`border-image: \'cata.jfif\';`' },
+            { ar: '`background-image: url(\'cata.jfif\');`', en: '`background-image: url(\'cata.jfif\');`' },
+            { ar: '`image-src: url(\'cata.jfif\');`', en: '`image-src: url(\'cata.jfif\');`' }
+          ],
+          answer: 2,
+          expAr: 'الخاصية `background-image` مع الدالة `url()` تضيف صورة خلفية للعنصر.',
+          expEn: '`background-image: url(...)` assigns a background image to an element.'
+        },
+        {
+          id: 33,
+          ar: 'ماذا تفعل الخاصية `background-repeat: no-repeat;`؟',
+          en: 'What does the CSS property `background-repeat: no-repeat;` do?',
+          options: [
+            { ar: 'تكرر صورة الخلفية أفقياً فقط', en: 'Repeats the background image horizontally only' },
+            { ar: 'تكرر صورة الخلفية عمودياً فقط', en: 'Repeats the background image vertically only' },
+            { ar: 'تخفي صورة الخلفية بشكل كامل', en: 'Hides the background image completely' },
+            { ar: 'تمنع تكرار صورة الخلفية وتعرضها مرة واحدة', en: 'Prevents the background image from repeating' }
+          ],
+          answer: 3,
+          expAr: 'القيمة `no-repeat` تعرض صورة الخلفية مرة واحدة دون تكرارها.',
+          expEn: '`background-repeat: no-repeat;` displays the background image only once without tiling.'
+        },
+        {
+          id: 34,
+          ar: 'أي قيمة للخاصية `background-repeat` تكرر صورة الخلفية أفقياً (من اليسار لليمين) فقط؟',
+          en: 'Which `background-repeat` value repeats the background image horizontally only?',
+          options: [
+            { ar: '`repeat-x`', en: '`repeat-x`' },
+            { ar: '`repeat-y`', en: '`repeat-y`' },
+            { ar: '`no-repeat`', en: '`no-repeat`' },
+            { ar: '`cover`', en: '`cover`' }
+          ],
+          answer: 0,
+          expAr: 'القيمة `repeat-x` تكرر الصورة على المحور الأفقي X فقط، بينما `repeat-y` على المحور الرأسي Y.',
+          expEn: '`repeat-x` tiles the image along the horizontal X-axis only.'
+        },
+        {
+          id: 35,
+          ar: 'ما الفرق بين `background-size: cover;` و `background-size: contain;`؟',
+          en: 'What is the difference between `background-size: cover;` and `background-size: contain;`?',
+          options: [
+            { ar: '`cover` تصغّر الصورة و `contain` تحذفها', en: '`cover` shrinks the image and `contain` removes it' },
+            { ar: '`cover` تملأ العنصر بالكامل وقد تقص جزءاً بينما `contain` تُظهر الصورة كاملة داخل العنصر', en: '`cover` fills the box (may crop) while `contain` fits the entire image inside' },
+            { ar: '`cover` تكرر الصورة أفقياً و `contain` تكررها عمودياً', en: '`cover` repeats horizontally and `contain` repeats vertically' },
+            { ar: 'لا يوجد أي فرق بين القيمتين في CSS', en: 'There is no difference between the two values in CSS' }
+          ],
+          answer: 1,
+          expAr: '`cover` تغطي المساحة بالكامل مع الحفاظ على النسبة وقد يُقص جزء من الصورة، أما `contain` فتُظهر الصورة كاملة دون قص.',
+          expEn: '`cover` scales the image to fill the entire container (cropping if needed), while `contain` keeps the full image visible.'
+        },
+        {
+          id: 36,
+          ar: 'أي خاصية CSS تُستخدم لتحديد موضع صورة الخلفية مثل `center` أو `top right`؟',
+          en: 'Which CSS property sets the position of a background image such as `center` or `top right`?',
+          options: [
+            { ar: '`background-size`', en: '`background-size`' },
+            { ar: '`background-repeat`', en: '`background-repeat`' },
+            { ar: '`background-position`', en: '`background-position`' },
+            { ar: '`background-color`', en: '`background-color`' }
+          ],
+          answer: 2,
+          expAr: 'الخاصية `background-position` تحدد مكان ظهور صورة الخلفية داخل العنصر.',
+          expEn: '`background-position` controls where the background image is placed inside the element.'
+        },
+        {
+          id: 37,
+          ar: 'ماذا تفعل القاعدة `border: 5px solid;` على العنصر `<div>`؟',
+          en: 'What does `border: 5px solid;` apply to a `<div>` element?',
+          options: [
+            { ar: 'تضيف هامشاً خارجياً بمقدار 5 بكسل', en: 'Adds an outer margin of 5 pixels' },
+            { ar: 'تغير ارتفاع العنصر إلى 5 بكسل', en: 'Changes the element height to 5 pixels' },
+            { ar: 'تجعل زوايا العنصر دائرية بمقدار 5 بكسل', en: 'Rounds the element corners by 5 pixels' },
+            { ar: 'ترسم حدوداً متصلة بسمك 5 بكسل حول العنصر', en: 'Draws a 5px solid border around the element' }
+          ],
+          answer: 3,
+          expAr: 'الخاصية `border: 5px solid;` ترسم إطاراً متصلاً حول العنصر بسمك 5 بكسل.',
+          expEn: '`border: 5px solid;` creates a continuous 5-pixel border around the element.'
+        },
+        {
+          id: 38,
+          ar: 'في CSS، إذا كُتبت الخاصية `background-size: 400px;` وبعدها مباشرة `background-size: cover;` لنفس العنصر، أي قيمة سيتم تطبيقها؟',
+          en: 'In CSS, if `background-size: 400px;` is followed immediately by `background-size: cover;` on the same element, which value applies?',
+          options: [
+            { ar: 'تُطبق `cover` لأن القاعدة الأحدث تلغي السابقة', en: '`cover` applies because the later declaration overrides the earlier one' },
+            { ar: 'تُطبق `400px` لأن القاعدة الأولى لها الأولوية دائماً', en: '`400px` applies because the first declaration always wins' },
+            { ar: 'يحدث خطأ ولا تظهر صورة الخلفية نهائياً', en: 'An error occurs and the background image disappears' },
+            { ar: 'يجمع المتصفح القيمتين معاً في وقت واحد', en: 'The browser combines both values at the same time' }
+          ],
+          answer: 0,
+          expAr: 'في CSS عند تكرار نفس الخاصية داخل نفس القاعدة، تفوز القيمة المكتوبة لاحقاً (Cascade).',
+          expEn: 'In CSS cascading, when the same property is declared twice in a rule, the later declaration overrides the earlier one.'
+        },
+
+        // --- Lesson 8 (6 questions) ---
+        {
+          id: 39,
+          ar: 'ما تأثير الخاصية `border-radius: 10px;` على العنصر `<div>`؟',
+          en: 'What is the effect of `border-radius: 10px;` on a `<div>` element?',
+          options: [
+            { ar: 'زيادة سمك الإطار الخارجي إلى 10 بكسل', en: 'Increases the outer border thickness to 10px' },
+            { ar: 'جعل زوايا العنصر دائرية ومنحنية بمقدار 10 بكسل', en: 'Rounds the corners of the element by 10px' },
+            { ar: 'تحريك العنصر لليسار بمقدار 10 بكسل', en: 'Moves the element to the left by 10px' },
+            { ar: 'إضافة ظل خارجي حول العنصر بمقدار 10 بكسل', en: 'Adds an outer shadow of 10px around the element' }
+          ],
+          answer: 1,
+          expAr: 'الخاصية `border-radius` تتحكم في استدارة زوايا العنصر.',
+          expEn: '`border-radius` rounds the corners of an element’s outer border edge.'
+        },
+        {
+          id: 40,
+          ar: 'ماذا تمثل الأرقام الثلاثة في القيمة اللونية `rgb(128, 128, 128)`؟',
+          en: 'What do the three numbers represent in the color value `rgb(128, 128, 128)`?',
+          options: [
+            { ar: 'العرض والارتفاع وسمك الحدود بالبكسل', en: 'Width, height, and border thickness in pixels' },
+            { ar: 'الهامش العلوي والهامش الأيسر والشفافية', en: 'Top margin, left margin, and opacity' },
+            { ar: 'درجات اللون الأحمر والأخضر والأزرق (Red, Green, Blue)', en: 'Intensities of Red, Green, and Blue channels' },
+            { ar: 'نسب التدرج اللوني الثلاثي في الخلفية', en: 'Percentages of three gradient color stops' }
+          ],
+          answer: 2,
+          expAr: 'النظام `rgb()` يحدد اللون بمزج الأحمر (Red) والأخضر (Green) والأزرق (Blue) بقيم من 0 إلى 255.',
+          expEn: '`rgb()` defines a color by mixing Red, Green, and Blue values from 0 to 255.'
+        },
+        {
+          id: 41,
+          ar: 'ما وظيفة الخاصيتين `margin-top: 34px;` و `margin-left: 89px;` على الصورة `<img>`؟',
+          en: 'What do `margin-top: 34px;` and `margin-left: 89px;` do to an `<img>` element?',
+          options: [
+            { ar: 'تغيير عرض الصورة وارتفاعها الفعلي', en: 'Change the actual width and height of the image' },
+            { ar: 'إضافة حدود ملونة أعلى ويسار الصورة', en: 'Add colored borders to the top and left of the image' },
+            { ar: 'تدوير الصورة بزاوية محددة بالدرجات', en: 'Rotate the image by a specific angle in degrees' },
+            { ar: 'إضافة مسافة خارجية أعلى ويسار الصورة لإزاحتها', en: 'Add outer spacing above and to the left of the image' }
+          ],
+          answer: 3,
+          expAr: 'الخاصية `margin` تضيف هوامش خارجية حول العنصر لتحريكه وإبعاده عما حوله.',
+          expEn: '`margin-top` and `margin-left` add outer space outside the element’s border.'
+        },
+        {
+          id: 42,
+          ar: 'ما نوع التدرج الذي ينتجه الكود `background-image: linear-gradient(to right, red, yellow, green);`؟',
+          en: 'What kind of gradient is produced by `background-image: linear-gradient(to right, red, yellow, green);`?',
+          options: [
+            { ar: 'تدرج خطي يتجه من اليسار إلى اليمين عبر الألوان الثلاثة', en: 'A linear gradient flowing from left to right across the three colors' },
+            { ar: 'تدرج دائري يبدأ من المنتصف وينتشر للخارج', en: 'A circular gradient starting from the center outward' },
+            { ar: 'تدرج خطي يتجه من الأسفل إلى الأعلى فقط', en: 'A linear gradient flowing from bottom to top only' },
+            { ar: 'لون خلفية ثابت واحد بدون أي تدرج', en: 'A single solid background color with no gradient' }
+          ],
+          answer: 0,
+          expAr: '`linear-gradient` ينشئ تدرجاً خطياً، والاتجاه `to right` يجعله يمتد من اليسار نحو اليمين.',
+          expEn: '`linear-gradient(to right, ...)` transitions colors linearly from left to right.'
+        },
+        {
+          id: 43,
+          ar: 'في الكود `linear-gradient(red 33%, white 33% 66%, black 66%)`، ماذا تسبب النسب المئوية المتطابقة مثل `33%` و `66%`؟',
+          en: 'In `linear-gradient(red 33%, white 33% 66%, black 66%)`, what do matching percentage stops like `33%` and `66%` create?',
+          options: [
+            { ar: 'دمج ناعم ومتداخل جداً بين الألوان الثلاثة', en: 'A very soft, blended transition between the three colors' },
+            { ar: 'حدوداً حادة وفاصلة بوضوح بين كل لون والآخر مثل العلم', en: 'Sharp, hard edges between each color band like a flag' },
+            { ar: 'تدرجاً دائرياً في منتصف العنصر فقط', en: 'A circular gradient in the center of the element only' },
+            { ar: 'شفافية بنسبة 33% للون الأحمر فقط', en: '33% transparency applied to the red color only' }
+          ],
+          answer: 1,
+          expAr: 'تحديد نفس النسبة كنهاية لون وبداية اللون التالي ينشئ انتقالاً حاداً دون تداخل (مثل تصميم الأعلام).',
+          expEn: 'Placing two color stops at the same percentage creates a crisp, hard edge between solid color bands.'
+        },
+        {
+          id: 44,
+          ar: 'ما الفرق الأساسي بين `radial-gradient()` و `linear-gradient()`؟',
+          en: 'What is the main difference between `radial-gradient()` and `linear-gradient()`?',
+          options: [
+            { ar: '`radial-gradient` يعمل على النصوص فقط و `linear-gradient` على الصور', en: '`radial-gradient` works on text only and `linear-gradient` on images' },
+            { ar: '`radial-gradient` يقبل لونين فقط و `linear-gradient` يقبل ثلاثة ألوان', en: '`radial-gradient` takes two colors only and `linear-gradient` takes three' },
+            { ar: '`radial-gradient` ينتشر بشكل دائري من المركز بينما `linear-gradient` يسير في خط مستقيم', en: '`radial-gradient` radiates outward from a center while `linear-gradient` runs along a straight line' },
+            { ar: '`radial-gradient` يحتاج لملف صورة خارجي لكي يعمل', en: '`radial-gradient` requires an external image file to work' }
+          ],
+          answer: 2,
+          expAr: 'التدرج `radial-gradient` يبدأ من نقطة مركزية بشكل دائري أو بيضاوي، بينما `linear-gradient` خطي.',
+          expEn: '`radial-gradient()` radiates outward from a center point, whereas `linear-gradient()` progresses along a straight line.'
+        },
+
+        // --- Lesson 9 (6 questions) ---
+        {
+          id: 45,
+          ar: 'في القاعدة `padding: 5px 10px;` على الزر `button`، ماذا تمثل القيمتان؟',
+          en: 'In `padding: 5px 10px;` on a `button`, what do the two values represent?',
+          options: [
+            { ar: '5 بكسل لليمين واليسار، و10 بكسل للأعلى والأسفل', en: '5px left/right and 10px top/bottom' },
+            { ar: '5 بكسل للهامش الخارجي و10 بكسل للحدود', en: '5px outer margin and 10px border width' },
+            { ar: '5 بكسل للأعلى فقط و10 بكسل للأسفل فقط', en: '5px top only and 10px bottom only' },
+            { ar: '5 بكسل للأعلى والأسفل، و10 بكسل لليمين واليسار', en: '5px top/bottom and 10px left/right' }
+          ],
+          answer: 3,
+          expAr: 'عند كتابة قيمتين لـ `padding` تكون الأولى للأعلى والأسفل والثانية لليمين واليسار.',
+          expEn: 'With two values, `padding` sets top/bottom first (5px) and left/right second (10px).'
+        },
+        {
+          id: 46,
+          ar: 'ما وظيفة الخاصيتين `cursor: pointer;` و `transition: 0.2s;` على الزر؟',
+          en: 'What do `cursor: pointer;` and `transition: 0.2s;` do on a button?',
+          options: [
+            { ar: 'تغيير المؤشر لشكل يد وإضافة انتقال ناعم مدته 0.2 ثانية للتأثيرات', en: 'Shows a hand cursor and smoothly animates style changes over 0.2s' },
+            { ar: 'إخفاء الزر بعد 0.2 ثانية من تحميل الصفحة', en: 'Hides the button 0.2 seconds after the page loads' },
+            { ar: 'إزالة حدود الزر وتكبير النص بنسبة 20%', en: 'Removes button borders and enlarges text by 20%' },
+            { ar: 'تغيير لون خلفية الصفحة بالكامل عند النقر', en: 'Changes the entire page background color on click' }
+          ],
+          answer: 0,
+          expAr: '`cursor: pointer` يحوّل مؤشر الفأرة إلى يد، و `transition: 0.2s` يجعل تغيّر الخصائص سلساً.',
+          expEn: '`cursor: pointer` shows a clickable hand icon, and `transition: 0.2s` smoothly animates property changes.'
+        },
+        {
+          id: 47,
+          ar: 'متى يتم تطبيق التنسيقات المكتوبة داخل المحدد `button:hover`؟',
+          en: 'When are the styles inside the `button:hover` selector applied?',
+          options: [
+            { ar: 'بمجرد تحميل الصفحة قبل أي تفاعل', en: 'Immediately when the page loads before any interaction' },
+            { ar: 'عند تمرير مؤشر الفأرة فوق الزر', en: 'When the mouse pointer hovers over the button' },
+            { ar: 'فقط بعد إرسال النموذج بالكامل', en: 'Only after the entire form is submitted' },
+            { ar: 'عند تعطيل الزر ومنع النقر عليه', en: 'When the button is disabled and unclickable' }
+          ],
+          answer: 1,
+          expAr: 'الفئة الزائفة `:hover` تُفعّل عندما يمر مؤشر الفأرة فوق العنصر.',
+          expEn: 'The `:hover` pseudo-class activates while the user’s pointer is over the element.'
+        },
+        {
+          id: 48,
+          ar: 'ماذا يحدث للزر عند إضافة القاعدة `button:active { scale: 0.9; }`؟',
+          en: 'What happens to the button when `button:active { scale: 0.9; }` is applied?',
+          options: [
+            { ar: 'يكبر حجم الزر تلقائياً عند فتح الصفحة', en: 'The button grows larger automatically on page load' },
+            { ar: 'يختفي الزر تماماً عند تمرير الفأرة فوقه', en: 'The button disappears completely on mouse hover' },
+            { ar: 'يصغر حجم الزر قليلاً إلى 90% أثناء لحظة الضغط عليه', en: 'The button shrinks slightly to 90% while being clicked' },
+            { ar: 'يتحرك الزر إلى أسفل الصفحة عند الضغط عليه', en: 'The button moves to the bottom of the page on click' }
+          ],
+          answer: 2,
+          expAr: 'الفئة `:active` تعمل أثناء لحظة الضغط على الزر، و `scale: 0.9` تصغّره إلى 90% من حجمه.',
+          expEn: '`:active` applies while the element is being pressed, and `scale: 0.9` scales it down to 90%.'
+        },
+        {
+          id: 49,
+          ar: 'أي عنصر زائف (Pseudo-element) يُستخدم لتنسيق النص الذي يقوم المستخدم بتظليله بالفأرة؟',
+          en: 'Which pseudo-element styles the portion of text highlighted by the user?',
+          options: [
+            { ar: '`p::first-line`', en: '`p::first-line`' },
+            { ar: '`p::first-letter`', en: '`p::first-letter`' },
+            { ar: '`p::before`', en: '`p::before`' },
+            { ar: '`p::selection`', en: '`p::selection`' }
+          ],
+          answer: 3,
+          expAr: 'العنصر الزائف `::selection` يتحكم في لون خلفية ولون النص عند تحديده بالفأرة.',
+          expEn: '`::selection` styles the background and text color of user-selected text.'
+        },
+        {
+          id: 50,
+          ar: 'ما الخاصية الضرورية لكي يظهر النص المضاف باستخدام `h2::before` أو `h2::after`؟',
+          en: 'Which CSS property is required for generated text in `h2::before` or `h2::after` to appear?',
+          options: [
+            { ar: 'الخاصية `content`', en: 'The `content` property' },
+            { ar: 'الخاصية `display`', en: 'The `display` property' },
+            { ar: 'الخاصية `font-weight`', en: 'The `font-weight` property' },
+            { ar: 'الخاصية `box-shadow`', en: 'The `box-shadow` property' }
+          ],
+          answer: 0,
+          expAr: 'لا يعمل `::before` أو `::after` بدون الخاصية `content` مثل `content: \'Welcome \';`.',
+          expEn: '`::before` and `::after` require the `content` property to insert generated content.'
+        }
+      ];
+
+      // State
+      let currentIndex = 0;
+      let viewAll = false;
+      let userAnswers = {}; // { [questionId]: optionIndex }
+
+      // DOM refs
+      const quizSection = document.getElementById('quizSection');
+      const resultSection = document.getElementById('resultSection');
+      const attemptBadge = document.getElementById('attemptBadge');
+      const toggleViewBtn = document.getElementById('toggleViewBtn');
+      const progressLabel = document.getElementById('progressLabel');
+      const progressPct = document.getElementById('progressPct');
+      const progressFill = document.getElementById('progressFill');
+      const paletteCard = document.getElementById('paletteCard');
+      const paletteGrid = document.getElementById('paletteGrid');
+      const currentIndicator = document.getElementById('currentIndicator');
+      const questionsContainer = document.getElementById('questionsContainer');
+      const singleNavGroup = document.getElementById('singleNavGroup');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const submitBtn = document.getElementById('submitBtn');
+
+      const scoreCircle = document.getElementById('scoreCircle');
+      const scorePctEl = document.getElementById('scorePct');
+      const scoreFracEl = document.getElementById('scoreFrac');
+      const resultTitle = document.getElementById('resultTitle');
+      const resultSub = document.getElementById('resultSub');
+      const correctCountEl = document.getElementById('correctCount');
+      const wrongCountEl = document.getElementById('wrongCount');
+      const wrongReviewSection = document.getElementById('wrongReviewSection');
+
+      const submitModal = document.getElementById('submitModal');
+      const submitModalText = document.getElementById('submitModalText');
+      const submitModalWarn = document.getElementById('submitModalWarn');
+      const cancelSubmitBtn = document.getElementById('cancelSubmitBtn');
+      const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
+
+      const unlockBtn = document.getElementById('unlockBtn');
+      const unlockModal = document.getElementById('unlockModal');
+      const pinInput = document.getElementById('pinInput');
+      const pinError = document.getElementById('pinError');
+      const cancelUnlockBtn = document.getElementById('cancelUnlockBtn');
+      const confirmUnlockBtn = document.getElementById('confirmUnlockBtn');
+
+      // Safe HTML escaping & inline `code` formatting
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function formatText(str) {
+        const escaped = escapeHtml(str);
+        return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+      }
+
+      // Safe localStorage helpers
+      function loadSavedResult() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.submitted === true) return parsed;
+          return null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function saveResult(data) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {
+          // Ignore storage restrictions in sandboxed environments
+        }
+      }
+
+      function clearSavedResult() {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {
+          // Ignore storage restrictions
+        }
+      }
+
+      function updateProgress() {
+        const answeredCount = Object.keys(userAnswers).length;
+        const total = QUESTIONS.length;
+        const pct = Math.round((answeredCount / total) * 100);
+        progressLabel.textContent = 'تمت الإجابة على ' + answeredCount + ' من ' + total + ' سؤال';
+        progressPct.textContent = pct + '%';
+        progressFill.style.width = pct + '%';
+      }
+
+      function renderPalette() {
+        paletteGrid.innerHTML = '';
+        QUESTIONS.forEach(function (q, idx) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'q-dot';
+          if (userAnswers[q.id] !== undefined) btn.classList.add('answered');
+          if (!viewAll && idx === currentIndex) btn.classList.add('current');
+          btn.textContent = q.id;
+          btn.setAttribute('aria-label', 'سؤال ' + q.id);
+          btn.addEventListener('click', function () {
+            currentIndex = idx;
+            if (viewAll) {
+              const target = document.getElementById('q-card-' + q.id);
+              if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              renderQuiz();
+            }
+          });
+          paletteGrid.appendChild(btn);
+        });
+        currentIndicator.textContent = viewAll
+          ? 'عرض جميع الأسئلة (' + QUESTIONS.length + ')'
+          : 'سؤال ' + (currentIndex + 1) + ' / ' + QUESTIONS.length;
+      }
+
+      function buildQuestionCard(q) {
+        const card = document.createElement('article');
+        card.className = 'question-card';
+        card.id = 'q-card-' + q.id;
+
+        const isAnswered = userAnswers[q.id] !== undefined;
+
+        const meta = document.createElement('div');
+        meta.className = 'q-meta';
+        meta.innerHTML =
+          '<span class="q-number">سؤال ' + q.id + ' / Question ' + q.id + '</span>' +
+          '<span class="q-status ' + (isAnswered ? 'done' : '') + '">' +
+          (isAnswered ? 'تم الاختيار ✓' : 'لم يتم الاختيار') +
+          '</span>';
+        card.appendChild(meta);
+
+        const arEl = document.createElement('div');
+        arEl.className = 'q-text-ar';
+        arEl.innerHTML = formatText(q.ar);
+        card.appendChild(arEl);
+
+        const enEl = document.createElement('div');
+        enEl.className = 'q-text-en';
+        enEl.innerHTML = formatText(q.en);
+        card.appendChild(enEl);
+
+        const list = document.createElement('div');
+        list.className = 'options-list';
+
+        q.options.forEach(function (opt, optIdx) {
+          const optBtn = document.createElement('button');
+          optBtn.type = 'button';
+          optBtn.className = 'option-btn' + (userAnswers[q.id] === optIdx ? ' selected' : '');
+          optBtn.innerHTML =
+            '<span class="opt-letter">' + LETTERS[optIdx] + '</span>' +
+            '<span class="opt-content">' +
+              '<span class="opt-ar">' + formatText(opt.ar) + '</span>' +
+              '<span class="opt-en">' + formatText(opt.en) + '</span>' +
+            '</span>';
+
+          optBtn.addEventListener('click', function () {
+            userAnswers[q.id] = optIdx;
+            updateProgress();
+            renderPalette();
+            // Update selected state in this card without revealing correctness
+            const siblings = list.querySelectorAll('.option-btn');
+            siblings.forEach(function (b, i) {
+              b.classList.toggle('selected', i === optIdx);
+            });
+            const statusEl = meta.querySelector('.q-status');
+            if (statusEl) {
+              statusEl.textContent = 'تم الاختيار ✓';
+              statusEl.classList.add('done');
+            }
+          });
+
+          list.appendChild(optBtn);
+        });
+
+        card.appendChild(list);
+        return card;
+      }
+
+      function renderQuiz() {
+        questionsContainer.innerHTML = '';
+        if (viewAll) {
+          QUESTIONS.forEach(function (q) {
+            questionsContainer.appendChild(buildQuestionCard(q));
+          });
+          singleNavGroup.classList.add('hidden');
+          toggleViewBtn.textContent = 'عرض سؤال بسؤال';
+        } else {
+          questionsContainer.appendChild(buildQuestionCard(QUESTIONS[currentIndex]));
+          singleNavGroup.classList.remove('hidden');
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === QUESTIONS.length - 1;
+          toggleViewBtn.textContent = 'عرض جميع الأسئلة';
+        }
+        updateProgress();
+        renderPalette();
+      }
+
+      function renderResult(saved) {
+        quizSection.classList.add('hidden');
+        toggleViewBtn.classList.add('hidden');
+        resultSection.classList.remove('hidden');
+
+        attemptBadge.textContent = 'تم التسليم • المحاولة مغلقة';
+        attemptBadge.classList.add('locked');
+
+        const answersMap = saved.answers || {};
+        let correct = 0;
+        const wrongItems = [];
+
+        QUESTIONS.forEach(function (q) {
+          const chosen = answersMap[q.id];
+          if (chosen === q.answer) {
+            correct++;
+          } else {
+            wrongItems.push({ question: q, chosen: chosen });
+          }
+        });
+
+        const total = QUESTIONS.length;
+        const wrong = wrongItems.length;
+        const pct = Math.round((correct / total) * 100);
+
+        scorePctEl.textContent = pct + '%';
+        scoreFracEl.textContent = correct + ' / ' + total;
+        correctCountEl.textContent = correct;
+        wrongCountEl.textContent = wrong;
+
+        scoreCircle.classList.remove('high', 'low');
+        if (pct >= 75) {
+          scoreCircle.classList.add('high');
+          resultTitle.textContent = 'أحسنت! نتيجة ممتازة / Great Job!';
+        } else if (pct >= 50) {
+          resultTitle.textContent = 'نتيجة جيدة / Good Effort';
+        } else {
+          scoreCircle.classList.add('low');
+          resultTitle.textContent = 'تحتاج إلى مراجعة الدروس / Needs Review';
+        }
+
+        resultSub.textContent = 'تم حفظ نتيجتك وإغلاق الاختبار (محاولة واحدة فقط).';
+
+        wrongReviewSection.innerHTML = '';
+        if (wrongItems.length === 0) {
+          const perfect = document.createElement('div');
+          perfect.className = 'perfect-box';
+          perfect.textContent = 'ممتاز! أجبت على جميع الأسئلة بشكل صحيح ولا توجد إجابات خاطئة. / Perfect score! No wrong answers.';
+          wrongReviewSection.appendChild(perfect);
+          return;
+        }
+
+        const revHeader = document.createElement('div');
+        revHeader.className = 'review-header';
+        revHeader.innerHTML =
+          '<h2>الإجابات الخاطئة (' + wrongItems.length + ') / Wrong Answers Review</h2>';
+        wrongReviewSection.appendChild(revHeader);
+
+        wrongItems.forEach(function (item) {
+          const q = item.question;
+          const chosenIdx = item.chosen;
+          const rightOpt = q.options[q.answer];
+          const chosenHtml = chosenIdx !== undefined && q.options[chosenIdx]
+            ? '<div class="opt-ar">' + LETTERS[chosenIdx] + ') ' + formatText(q.options[chosenIdx].ar) + '</div>' +
+              '<div class="opt-en">' + formatText(q.options[chosenIdx].en) + '</div>'
+            : '<div class="opt-ar">لم تتم الإجابة على هذا السؤال</div><div class="opt-en">Not answered</div>';
+
+          const card = document.createElement('article');
+          card.className = 'review-card';
+          card.innerHTML =
+            '<div class="q-meta">' +
+              '<span class="q-number">سؤال ' + q.id + ' / Question ' + q.id + '</span>' +
+            '</div>' +
+            '<div class="q-text-ar">' + formatText(q.ar) + '</div>' +
+            '<div class="q-text-en">' + formatText(q.en) + '</div>' +
+            '<div class="ans-compare">' +
+              '<div class="ans-box user-wrong">' +
+                '<span class="ans-tag">إجابتك الخاطئة / Your Answer</span>' +
+                chosenHtml +
+              '</div>' +
+              '<div class="ans-box right-ans">' +
+                '<span class="ans-tag">الإجابة الصحيحة / Correct Answer</span>' +
+                '<div class="opt-ar">' + LETTERS[q.answer] + ') ' + formatText(rightOpt.ar) + '</div>' +
+                '<div class="opt-en">' + formatText(rightOpt.en) + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="exp-box">' +
+              '<div><strong>التوضيح:</strong> ' + formatText(q.expAr) + '</div>' +
+              '<div class="exp-en"><strong>Explanation:</strong> ' + formatText(q.expEn) + '</div>' +
+            '</div>';
+
+          wrongReviewSection.appendChild(card);
+        });
+      }
+
+      // Events
+      toggleViewBtn.addEventListener('click', function () {
+        viewAll = !viewAll;
+        renderQuiz();
+      });
+
+      prevBtn.addEventListener('click', function () {
+        if (currentIndex > 0) {
+          currentIndex--;
+          renderQuiz();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+
+      nextBtn.addEventListener('click', function () {
+        if (currentIndex < QUESTIONS.length - 1) {
+          currentIndex++;
+          renderQuiz();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+
+      submitBtn.addEventListener('click', function () {
+        const answeredCount = Object.keys(userAnswers).length;
+        const unanswered = QUESTIONS.length - answeredCount;
+        submitModalText.textContent =
+          'لقد أجبت على ' + answeredCount + ' من أصل ' + QUESTIONS.length + ' سؤال.';
+        if (unanswered > 0) {
+          submitModalWarn.textContent =
+            'يوجد ' + unanswered + ' سؤال بدون إجابة وسيتم احتسابها كإجابات خاطئة.';
+          submitModalWarn.classList.remove('hidden');
+        } else {
+          submitModalWarn.classList.add('hidden');
+        }
+        submitModal.classList.add('open');
+      });
+
+      cancelSubmitBtn.addEventListener('click', function () {
+        submitModal.classList.remove('open');
+      });
+
+      confirmSubmitBtn.addEventListener('click', function () {
+        submitModal.classList.remove('open');
+        const payload = {
+          submitted: true,
+          timestamp: Date.now(),
+          answers: Object.assign({}, userAnswers)
+        };
+        saveResult(payload);
+        renderResult(payload);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Instructor unlock modal
+      unlockBtn.addEventListener('click', function () {
+        pinInput.value = '';
+        pinError.textContent = '';
+        unlockModal.classList.add('open');
+        pinInput.focus();
+      });
+
+      cancelUnlockBtn.addEventListener('click', function () {
+        unlockModal.classList.remove('open');
+      });
+
+      function attemptUnlock() {
+        if (pinInput.value.trim() === INSTRUCTOR_PIN) {
+          clearSavedResult();
+          userAnswers = {};
+          currentIndex = 0;
+          viewAll = false;
+          unlockModal.classList.remove('open');
+          resultSection.classList.add('hidden');
+          quizSection.classList.remove('hidden');
+          toggleViewBtn.classList.remove('hidden');
+          attemptBadge.textContent = 'محاولة واحدة فقط • 50 سؤال';
+          attemptBadge.classList.remove('locked');
+          renderQuiz();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          pinError.textContent = 'رمز المعلم غير صحيح';
+        }
+      }
+
+      confirmUnlockBtn.addEventListener('click', attemptUnlock);
+      pinInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') attemptUnlock();
+      });
+
+      // Close modals on backdrop click
+      submitModal.addEventListener('click', function (e) {
+        if (e.target === submitModal) submitModal.classList.remove('open');
+      });
+      unlockModal.addEventListener('click', function (e) {
+        if (e.target === unlockModal) unlockModal.classList.remove('open');
+      });
+
+      // Init
+      const existing = loadSavedResult();
+      if (existing) {
+        renderResult(existing);
+      } else {
+        renderQuiz();
+      }
+    })();
+  </script>
+</body>
+</html>
