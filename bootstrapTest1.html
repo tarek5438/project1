@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اختبار</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-alt: #f8fafc;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --primary-border: #93c5fd;
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --success-border: #86efac;
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --danger-border: #fca5a5;
+      --warn: #b45309;
+      --warn-bg: #fffbeb;
+      --warn-border: #fcd34d;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px 14px 48px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .badge.locked {
+      background: var(--warn-bg);
+      color: var(--warn);
+      border-color: var(--warn-border);
+    }
+
+    .progress-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.94rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+      user-select: none;
+    }
+
+    .btn:hover:not(:disabled) {
+      background: var(--surface-alt);
+      border-color: var(--primary);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+
+    .btn-success {
+      background: var(--success);
+      border-color: var(--success);
+      color: #ffffff;
+    }
+
+    .btn-success:hover:not(:disabled) {
+      background: #166534;
+      border-color: #166534;
+    }
+
+    .btn-sm {
+      padding: 7px 13px;
+      font-size: 0.85rem;
+    }
+
+    .palette-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .palette-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+      gap: 6px;
+    }
+
+    .q-dot {
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-alt);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .q-dot:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .q-dot.answered {
+      background: var(--primary-soft);
+      border-color: var(--primary-border);
+      color: var(--primary);
+    }
+
+    .q-dot.current {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.22);
+    }
+
+    .question-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .q-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .q-number {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .q-status {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .q-status.done {
+      color: var(--primary);
+    }
+
+    .q-text-ar {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.65;
+    }
+
+    .q-text-en {
+      direction: ltr;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 10px 14px;
+      background: var(--surface-alt);
+      border-left: 3px solid var(--primary);
+      border-radius: 8px;
+      margin-bottom: 18px;
+      line-height: 1.55;
+    }
+
+    code {
+      font-family: Consolas, 'Courier New', monospace;
+      direction: ltr;
+      unicode-bidi: isolate;
+      display: inline-block;
+      background: #e2e8f0;
+      color: #0f172a;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-size: 0.9em;
+      font-weight: 700;
+    }
+
+    .options-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: right;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 16px;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary-border);
+      background: var(--surface-alt);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .opt-letter {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border-strong);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.88rem;
+      margin-top: 2px;
+    }
+
+    .option-btn.selected .opt-letter {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .opt-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .opt-ar {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .opt-en {
+      direction: ltr;
+      text-align: left;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .result-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .score-circle {
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-soft);
+      border: 6px solid var(--primary);
+    }
+
+    .score-circle.high {
+      background: var(--success-bg);
+      border-color: var(--success);
+    }
+
+    .score-circle.low {
+      background: var(--danger-bg);
+      border-color: var(--danger);
+    }
+
+    .score-pct {
+      font-size: 1.9rem;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .score-frac {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .result-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .result-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .stat-box {
+      padding: 14px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+    }
+
+    .stat-box.correct {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+      color: var(--success);
+    }
+
+    .stat-box.wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: var(--danger);
+    }
+
+    .stat-val {
+      font-size: 1.5rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .stat-lbl {
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 24px 0 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .review-header h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--danger);
+    }
+
+    .review-card {
+      background: var(--surface);
+      border: 1px solid var(--danger-border);
+      border-right: 5px solid var(--danger);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .ans-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .ans-box {
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .ans-box.user-wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+    }
+
+    .ans-box.right-ans {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+    }
+
+    .ans-tag {
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .ans-box.user-wrong .ans-tag {
+      color: var(--danger);
+    }
+
+    .ans-box.right-ans .ans-tag {
+      color: var(--success);
+    }
+
+    .exp-box {
+      margin-top: 12px;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .exp-en {
+      direction: ltr;
+      text-align: left;
+      margin-top: 4px;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .perfect-box {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      color: var(--success);
+      border-radius: var(--radius);
+      padding: 22px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      max-width: 440px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+      border: 1px solid var(--border);
+    }
+
+    .modal-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .modal-card p {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .modal-warn {
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: var(--warn);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pin-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      direction: ltr;
+      text-align: center;
+      letter-spacing: 0.2em;
+    }
+
+    .pin-error {
+      color: var(--danger);
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-top: 6px;
+      min-height: 20px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .unlock-trigger {
+      background: transparent;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      opacity: 0.55;
+      transition: opacity 0.15s;
+    }
+
+    .unlock-trigger:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        padding: 16px;
+      }
+      .question-card {
+        padding: 18px 14px;
+      }
+      .ans-compare {
+        grid-template-columns: 1fr;
+      }
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>اختبار</h1>
+      <div class="header-controls">
+        <span id="attemptBadge" class="badge">محاولة واحدة فقط • 50 سؤال</span>
+        <button id="toggleViewBtn" class="btn btn-sm" type="button">عرض جميع الأسئلة</button>
+      </div>
+    </header>
+
+    <main id="quizSection">
+      <section class="progress-wrap">
+        <div class="progress-top">
+          <span id="progressLabel">تمت الإجابة على 0 من 50 سؤال</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </section>
+
+      <section id="paletteCard" class="palette-card">
+        <div class="palette-head">
+          <span>التنقل السريع بين الأسئلة / Quick Navigation</span>
+          <span id="currentIndicator">سؤال 1 / 50</span>
+        </div>
+        <div id="paletteGrid" class="palette-grid"></div>
+      </section>
+
+      <div id="questionsContainer"></div>
+
+      <nav class="nav-bar">
+        <div id="singleNavGroup" class="nav-group">
+          <button id="prevBtn" class="btn" type="button">السابق / Previous</button>
+          <button id="nextBtn" class="btn btn-primary" type="button">التالي / Next</button>
+        </div>
+        <button id="submitBtn" class="btn btn-success" type="button">إنهاء وتسليم الاختبار / Submit Exam</button>
+      </nav>
+    </main>
+
+    <section id="resultSection" class="hidden">
+      <div class="result-banner">
+        <div id="scoreCircle" class="score-circle">
+          <div id="scorePct" class="score-pct">0%</div>
+          <div id="scoreFrac" class="score-frac">0 / 50</div>
+        </div>
+        <div id="resultTitle" class="result-title">نتيجة الاختبار</div>
+        <div id="resultSub" class="result-sub">تم إغلاق الاختبار بعد استخدام المحاولة الوحيدة المتاحة.</div>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-val">50</div>
+            <div class="stat-lbl">إجمالي الأسئلة / Total</div>
+          </div>
+          <div class="stat-box correct">
+            <div id="correctCount" class="stat-val">0</div>
+            <div class="stat-lbl">إجابات صحيحة / Correct</div>
+          </div>
+          <div class="stat-box wrong">
+            <div id="wrongCount" class="stat-val">0</div>
+            <div class="stat-lbl">إجابات خاطئة / Wrong</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="wrongReviewSection"></div>
+    </section>
+
+    <footer class="footer">
+      <button id="unlockBtn" class="unlock-trigger" type="button" title="إعادة تعيين بواسطة المعلم">&#128274;</button>
+    </footer>
+  </div>
+
+  <div id="submitModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="submitModalTitle">
+    <div class="modal-card">
+      <h3 id="submitModalTitle">تأكيد تسليم الاختبار / Confirm Submission</h3>
+      <p id="submitModalText"></p>
+      <div id="submitModalWarn" class="modal-warn hidden"></div>
+      <p style="font-size:0.86rem; margin-bottom:0;">تنبيه: لديك فرصة واحدة فقط، ولن تتمكن من تعديل الإجابات أو إعادة الاختبار بعد التسليم.</p>
+      <div class="modal-actions">
+        <button id="cancelSubmitBtn" class="btn" type="button">مراجعة / Review</button>
+        <button id="confirmSubmitBtn" class="btn btn-success" type="button">تسليم نهائي / Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="unlockModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="unlockModalTitle">
+    <div class="modal-card">
+      <h3 id="unlockModalTitle">إعادة تعيين الاختبار (للمعلم)</h3>
+      <p>أدخل رمز المعلم لإعادة فتح الاختبار على هذا الجهاز:</p>
+      <input id="pinInput" class="pin-input" type="password" placeholder="****" autocomplete="off">
+      <div id="pinError" class="pin-error"></div>
+      <div class="modal-actions">
+        <button id="cancelUnlockBtn" class="btn" type="button">إلغاء</button>
+        <button id="confirmUnlockBtn" class="btn btn-primary" type="button">فتح الاختبار</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'bootstrap_exam_50_locked_v1';
+      const INSTRUCTOR_PIN = '1234';
+      const LETTERS = ['A', 'B', 'C', 'D'];
+
+      const QUESTIONS = [
+        // --- Grid, Colors, Opacity, Display, Spacing, Typography, Flexbox (11 questions) ---
+        {
+          id: 1,
+          ar: 'كم عدد الأعمدة الإجمالي الذي يعتمد عليه نظام الشبكة (Grid System) في Bootstrap؟',
+          en: 'How many total columns is the Bootstrap Grid System based on?',
+          options: [
+            { ar: '6 أعمدة في كل صف', en: '6 columns per row' },
+            { ar: '12 عموداً في كل صف', en: '12 columns per row' },
+            { ar: '10 أعمدة في كل صف', en: '10 columns per row' },
+            { ar: '16 عموداً في كل صف', en: '16 columns per row' }
+          ],
+          answer: 1,
+          expAr: 'نظام الشبكة في Bootstrap يقسّم كل صف `.row` إلى 12 عموداً.',
+          expEn: 'Bootstrap’s grid divides each `.row` into 12 equal columns.'
+        },
+        {
+          id: 2,
+          ar: 'في الكود `<div class="col-12 col-sm-6 col-md-4 col-lg-3">`، كم عموداً يظهر في الصف الواحد على الشاشات الكبيرة (`lg`)؟',
+          en: 'In `<div class="col-12 col-sm-6 col-md-4 col-lg-3">`, how many columns fit in one row on large (`lg`) screens?',
+          options: [
+            { ar: '4 أعمدة في الصف الواحد (12 ÷ 3)', en: '4 columns per row (12 ÷ 3)' },
+            { ar: '3 أعمدة في الصف الواحد (12 ÷ 4)', en: '3 columns per row (12 ÷ 4)' },
+            { ar: 'عمودان في الصف الواحد (12 ÷ 6)', en: '2 columns per row (12 ÷ 6)' },
+            { ar: 'عمود واحد فقط في الصف (12 ÷ 12)', en: '1 column per row (12 ÷ 12)' }
+          ],
+          answer: 0,
+          expAr: 'الكلاس `col-lg-3` يجعل كل عنصر يأخذ 3 من أصل 12، فيتسع الصف لـ 4 عناصر.',
+          expEn: '`col-lg-3` spans 3 out of 12 grid tracks, fitting 4 items per row.'
+        },
+        {
+          id: 3,
+          ar: 'ما وظيفة الكلاس `.row` داخل `.container` في شبكة Bootstrap؟',
+          en: 'What is the purpose of `.row` inside `.container` in the Bootstrap grid?',
+          options: [
+            { ar: 'إخفاء الأعمدة على شاشات الهواتف الصغيرة', en: 'Hides columns on small mobile screens' },
+            { ar: 'تغيير لون الخلفية إلى الرمادي الغامق', en: 'Changes the background color to dark gray' },
+            { ar: 'تنظيم الأعمدة أفقياً في صف واحد مرن', en: 'Wraps and aligns columns horizontally in a flex row' },
+            { ar: 'تثبيت شريط التنقل في أعلى الصفحة', en: 'Fixes the navigation bar to the top of the page' }
+          ],
+          answer: 2,
+          expAr: 'الكلاس `.row` يعمل كحاوية مرنة تجمع أعمدة الشبكة `.col-*` في صفوف منظمة.',
+          expEn: '`.row` serves as a flex wrapper that organizes `.col-*` columns horizontally.'
+        },
+        {
+          id: 4,
+          ar: 'أي كلاس في Bootstrap يعطي خلفية حمراء للعنصر؟',
+          en: 'Which Bootstrap class gives an element a red background color?',
+          options: [
+            { ar: '`bg-primary`', en: '`bg-primary`' },
+            { ar: '`bg-success`', en: '`bg-success`' },
+            { ar: '`bg-warning`', en: '`bg-warning`' },
+            { ar: '`bg-danger`', en: '`bg-danger`' }
+          ],
+          answer: 3,
+          expAr: 'الكلاس `bg-danger` يطبق لون الخلفية الأحمر في Bootstrap.',
+          expEn: '`bg-danger` applies Bootstrap’s red background color.'
+        },
+        {
+          id: 5,
+          ar: 'ما تأثير الكلاسين `fs-5` و `fw-bold` على النص داخل العنصر؟',
+          en: 'What do the classes `fs-5` and `fw-bold` do to text inside an element?',
+          options: [
+            { ar: 'ضبط حجم الخط إلى المستوى 5 وجعل الخط عريضاً', en: 'Sets font size to level 5 and makes the text bold' },
+            { ar: 'إضافة مسافة داخلية 5 بكسل وإطار سميك', en: 'Adds 5px padding and a thick border' },
+            { ar: 'تحريك النص 5 وحدات لليسار وتوسيطه', en: 'Shifts text 5 units left and centers it' },
+            { ar: 'تقليل شفافية النص إلى 50% وتلوينه', en: 'Reduces text opacity to 50% and colors it' }
+          ],
+          answer: 0,
+          expAr: '`fs-5` تعني Font Size 5 و `fw-bold` تعني Font Weight Bold.',
+          expEn: '`fs-5` sets the font size scale to 5 and `fw-bold` sets bold font weight.'
+        },
+        {
+          id: 6,
+          ar: 'ماذا تفعل الفئة `bg-opacity-25` عند إضافتها مع `bg-danger`؟',
+          en: 'What does `bg-opacity-25` do when combined with `bg-danger`?',
+          options: [
+            { ar: 'تجعل عرض العنصر 25% من عرض الشاشة', en: 'Sets the element width to 25% of the screen' },
+            { ar: 'تقلل شفافية لون الخلفية إلى 25% فقط', en: 'Sets the background color opacity to 25%' },
+            { ar: 'تضيف هامشاً داخلياً بمقدار 25 بكسل', en: 'Adds 25px of inner padding around the text' },
+            { ar: 'تخفي النص بنسبة 25% مع إبقاء الخلفية داكنة', en: 'Fades the text to 25% while keeping the background solid' }
+          ],
+          answer: 1,
+          expAr: 'الكلاس `bg-opacity-25` يضبط درجة عتامة لون الخلفية إلى 25% دون التأثير على وضوح النص.',
+          expEn: '`bg-opacity-25` sets background color opacity to 25% without fading the text.'
+        },
+        {
+          id: 7,
+          ar: 'ما تأثير الكلاس `d-none` على أي عنصر في Bootstrap؟',
+          en: 'What is the effect of the `d-none` class on any Bootstrap element?',
+          options: [
+            { ar: 'يحوّل العنصر إلى حاوية Flexbox أفقية', en: 'Turns the element into a horizontal Flexbox container' },
+            { ar: 'يحذف حدود العنصر الخارجية فقط', en: 'Removes the element’s outer border only' },
+            { ar: 'يخفي العنصر تماماً من الصفحة (`display: none`)', en: 'Completely hides the element (`display: none`)' },
+            { ar: 'يجعل العنصر يظهر ككتلة في سطر مستقل', en: 'Displays the element as a block on its own line' }
+          ],
+          answer: 2,
+          expAr: 'الكلاس `d-none` يطبق `display: none` فيخفي العنصر تماماً من العرض.',
+          expEn: '`d-none` applies `display: none`, hiding the element from layout.'
+        },
+        {
+          id: 8,
+          ar: 'أي كلاس في Bootstrap يحوّل العنصر إلى حاوية مرنة (`display: flex`)؟',
+          en: 'Which Bootstrap class turns an element into a Flexbox container (`display: flex`)?',
+          options: [
+            { ar: '`d-block`', en: '`d-block`' },
+            { ar: '`d-inline`', en: '`d-inline`' },
+            { ar: '`d-none`', en: '`d-none`' },
+            { ar: '`d-flex`', en: '`d-flex`' }
+          ],
+          answer: 3,
+          expAr: 'الكلاس `d-flex` يفعّل `display: flex` لتمكين محاذاة العناصر بسهولة.',
+          expEn: '`d-flex` applies `display: flex` to enable Flexbox alignment utilities.'
+        },
+        {
+          id: 9,
+          ar: 'في الكود `<div class="d-flex align-items-center justify-content-evenly" style="height: 300px;">`، ما وظيفة `align-items-center`؟',
+          en: 'In `<div class="d-flex align-items-center justify-content-evenly" style="height: 300px;">`, what does `align-items-center` do?',
+          options: [
+            { ar: 'توسيط العناصر عمودياً داخل ارتفاع الحاوية', en: 'Centers the items vertically inside the container height' },
+            { ar: 'توسيط النص داخل الفقرة أفقياً فقط', en: 'Centers text horizontally inside a paragraph only' },
+            { ar: 'توزيع المسافات بين العناصر بالتساوي أفقياً', en: 'Distributes horizontal space evenly between items' },
+            { ar: 'إضافة إطار حول كل عنصر داخل الحاوية', en: 'Adds a border around each item in the container' }
+          ],
+          answer: 0,
+          expAr: 'في الصف الأفقي المرن، `align-items-center` يوسط العناصر على المحور العمودي.',
+          expEn: 'In a horizontal flex container, `align-items-center` centers items vertically.'
+        },
+        {
+          id: 10,
+          ar: 'ما وظيفة الكلاس `justify-content-evenly` مع `d-flex`؟',
+          en: 'What does `justify-content-evenly` do when used with `d-flex`?',
+          options: [
+            { ar: 'دفع جميع العناصر إلى أقصى اليمين فقط', en: 'Pushes all items to the far right edge only' },
+            { ar: 'توزيع الفراغات بالتساوي بين العناصر وحولها أفقياً', en: 'Distributes equal horizontal space between and around items' },
+            { ar: 'وضع العناصر فوق بعضها في عمود رأسي', en: 'Stacks items on top of each other vertically' },
+            { ar: 'تمديد كل عنصر ليملأ 100% من الارتفاع', en: 'Stretches every item to fill 100% of the height' }
+          ],
+          answer: 1,
+          expAr: '`justify-content-evenly` يوزع المسافات الأفقية بالتساوي بين العناصر وبينها وبين الحواف.',
+          expEn: '`justify-content-evenly` places equal space between items and at both edges.'
+        },
+        {
+          id: 11,
+          ar: 'ما وظيفة الكلاس `p-5` في Bootstrap؟',
+          en: 'What does the `p-5` class do in Bootstrap?',
+          options: [
+            { ar: 'يضيف هامشاً خارجياً (Margin) من جميع الجهات', en: 'Adds outer margin on all sides' },
+            { ar: 'يحدد سمك الحدود الخارجية إلى 5 بكسل', en: 'Sets the outer border width to 5px' },
+            { ar: 'يضيف مسافة داخلية (Padding) كبيرة من جميع الجهات', en: 'Adds large inner padding on all four sides' },
+            { ar: 'يجعل العنصر يأخذ 5 أعمدة من الشبكة', en: 'Makes the element span 5 grid columns' }
+          ],
+          answer: 2,
+          expAr: 'الحرف `p` يرمز إلى `padding` والرقم `5` هو أعلى مستوى مسافة داخلية في مقياس Bootstrap.',
+          expEn: '`p` stands for padding and `5` applies the largest default spacing scale on all sides.'
+        },
+
+        // --- Spinners, Buttons & JS DOM (10 questions) ---
+        {
+          id: 12,
+          ar: 'أي كلاس في Bootstrap ينشئ مؤشر تحميل دائري دوّار (Border Spinner)؟',
+          en: 'Which Bootstrap class creates a rotating circular border spinner?',
+          options: [
+            { ar: '`spinner-grow`', en: '`spinner-grow`' },
+            { ar: '`spinner-line`', en: '`spinner-line`' },
+            { ar: '`loader-circle`', en: '`loader-circle`' },
+            { ar: '`spinner-border`', en: '`spinner-border`' }
+          ],
+          answer: 3,
+          expAr: 'الكلاس `spinner-border` يعرض دائرة تحميل تدور باستمرار.',
+          expEn: '`spinner-border` creates a rotating circular loading indicator.'
+        },
+        {
+          id: 13,
+          ar: 'ما الفرق بين `spinner-border` و `spinner-grow` في Bootstrap؟',
+          en: 'What is the difference between `spinner-border` and `spinner-grow` in Bootstrap?',
+          options: [
+            { ar: '`spinner-border` يدور كحلقة بينما `spinner-grow` ينبض ويكبر تدريجياً', en: '`spinner-border` spins as a ring while `spinner-grow` pulses outward' },
+            { ar: '`spinner-border` للأزرار فقط و `spinner-grow` للجداول فقط', en: '`spinner-border` is for buttons only and `spinner-grow` is for tables' },
+            { ar: '`spinner-border` لونه أحمر دائماً و `spinner-grow` أصفر دائماً', en: '`spinner-border` is always red and `spinner-grow` is always yellow' },
+            { ar: '`spinner-border` يحتاج JavaScript و `spinner-grow` يعمل بـ HTML فقط', en: '`spinner-border` needs JavaScript while `spinner-grow` is HTML only' }
+          ],
+          answer: 0,
+          expAr: '`spinner-border` مؤشر دوار بحافة، أما `spinner-grow` فمؤشر ينبض بالظهور والاختفاء.',
+          expEn: '`spinner-border` rotates a circular border, while `spinner-grow` repeatedly grows and fades.'
+        },
+        {
+          id: 14,
+          ar: 'ما وظيفة الكلاس `spinner-border-sm` عند وضعه داخل زر `<button>`؟',
+          en: 'What does `spinner-border-sm` do when placed inside a `<button>`?',
+          options: [
+            { ar: 'يخفي مؤشر التحميل على الشاشات الصغيرة', en: 'Hides the spinner on small screens' },
+            { ar: 'يجعل حجم مؤشر التحميل صغيراً مناسباً للزر', en: 'Makes the spinner small enough to fit neatly inside a button' },
+            { ar: 'يوقف حركة دوران مؤشر التحميل فوراً', en: 'Stops the spinner rotation immediately' },
+            { ar: 'يغير لون مؤشر التحميل إلى الأسود', en: 'Changes the spinner color to black' }
+          ],
+          answer: 1,
+          expAr: 'اللاحقة `-sm` تصغّر حجم الـ Spinner ليناسب المساحات الضيقة مثل الأزرار.',
+          expEn: 'The `-sm` modifier shrinks the spinner for compact components like buttons.'
+        },
+        {
+          id: 15,
+          ar: 'كيف نغير لون مؤشر التحميل `spinner-border` إلى الأحمر في Bootstrap؟',
+          en: 'How do you change the color of a `spinner-border` to red in Bootstrap?',
+          options: [
+            { ar: 'بإضافة الكلاس `bg-danger`', en: 'By adding the `bg-danger` class' },
+            { ar: 'بإضافة الكلاس `btn-danger`', en: 'By adding the `btn-danger` class' },
+            { ar: 'بإضافة الكلاس `text-danger`', en: 'By adding the `text-danger` class' },
+            { ar: 'بإضافة الكلاس `alert-danger`', en: 'By adding the `alert-danger` class' }
+          ],
+          answer: 2,
+          expAr: 'مؤشرات التحميل تستخدم `currentColor`، لذا يُغير لونها عبر كلاسات ألوان النص مثل `text-danger`.',
+          expEn: 'Spinners use `currentColor`, so text color utilities like `text-danger` set their color.'
+        },
+        {
+          id: 16,
+          ar: 'في كود زر التحميل، لماذا أُضيف الكلاس `d-none` إلى `<span id="spinner">` في البداية؟',
+          en: 'In the Download button code, why is `d-none` initially added to `<span id="spinner">`?',
+          options: [
+            { ar: 'لتغيير لون الزر إلى الرمادي تلقائياً', en: 'To change the button color to gray automatically' },
+            { ar: 'لتعطيل الزر فور تحميل الصفحة', en: 'To disable the button as soon as the page loads' },
+            { ar: 'لإخفاء كلمة Download قبل النقر', en: 'To hide the word Download before clicking' },
+            { ar: 'لإخفاء مؤشر التحميل حتى يضغط المستخدم على الزر', en: 'To hide the spinner until the user clicks the button' }
+          ],
+          answer: 3,
+          expAr: 'نضع `d-none` لإخفاء الـ Spinner مبدئياً ثم نزيله بـ `classList.remove(\'d-none\')` عند النقر.',
+          expEn: '`d-none` hides the spinner initially until JavaScript removes it on click.'
+        },
+        {
+          id: 17,
+          ar: 'ماذا تفعل الدالة `document.getElementById(\'button\')` في JavaScript؟',
+          en: 'What does `document.getElementById(\'button\')` do in JavaScript?',
+          options: [
+            { ar: 'تُحضر العنصر الذي يحمل السمة `id="button"` من الصفحة', en: 'Selects the HTML element whose `id` is `"button"`' },
+            { ar: 'تنشئ زراً جديداً وتضيفه لنهاية الصفحة', en: 'Creates a new button and appends it to the page' },
+            { ar: 'تحذف العنصر الذي يحمل الكلاس `button`', en: 'Deletes the element that has the class `button`' },
+            { ar: 'تنفذ حدث النقر تلقائياً بدون تدخل المستخدم', en: 'Triggers a click event automatically without user input' }
+          ],
+          answer: 0,
+          expAr: '`getElementById` تبحث في DOM وتعيد العنصر المطابق للمعرّف `id` المحدد.',
+          expEn: '`getElementById` retrieves the DOM element matching the specified `id`.'
+        },
+        {
+          id: 18,
+          ar: 'ما وظيفة السطر `button.classList.add(\'btn-secondary\')` عند النقر على زر التحميل؟',
+          en: 'What does `button.classList.add(\'btn-secondary\')` do when the Download button is clicked?',
+          options: [
+            { ar: 'يحذف جميع الكلاسات الموجودة على الزر', en: 'Removes all existing classes from the button' },
+            { ar: 'يضيف الكلاس `btn-secondary` لتغيير مظهر الزر للون الرمادي', en: 'Adds the `btn-secondary` class to style the button gray' },
+            { ar: 'يغير النص داخل الزر إلى كلمة Secondary', en: 'Changes the button text to the word Secondary' },
+            { ar: 'يعطل الدالة `setTimeout` مؤقتاً', en: 'Temporarily disables the `setTimeout` function' }
+          ],
+          answer: 1,
+          expAr: '`classList.add()` تضيف كلاس CSS جديداً إلى العنصر ديناميكياً.',
+          expEn: '`classList.add()` dynamically attaches the specified CSS class to the element.'
+        },
+        {
+          id: 19,
+          ar: 'ما تأثير السطر `button.disabled = true;` في JavaScript؟',
+          en: 'What is the effect of `button.disabled = true;` in JavaScript?',
+          options: [
+            { ar: 'يخفي الزر تماماً من شاشة المتصفح', en: 'Completely hides the button from the browser screen' },
+            { ar: 'يحذف الزر نهائياً من كود HTML', en: 'Permanently removes the button from the HTML DOM' },
+            { ar: 'يعطّل الزر ويمنع النقر عليه مرة أخرى أثناء التحميل', en: 'Disables the button so it cannot be clicked again while downloading' },
+            { ar: 'يعيد تشغيل مؤشر التحميل بسرعة مضاعفة', en: 'Restarts the spinner animation at double speed' }
+          ],
+          answer: 2,
+          expAr: 'تعيين `disabled = true` يمنع المستخدم من الضغط المتكرر على الزر أثناء تنفيذ العملية.',
+          expEn: 'Setting `button.disabled = true` prevents repeated clicks while an action is in progress.'
+        },
+        {
+          id: 20,
+          ar: 'في الكود `setTimeout(() => { ... }, 2000)`، بعد كم ثانية يتم تنفيذ الكود بداخله؟',
+          en: 'In `setTimeout(() => { ... }, 2000)`, after how many seconds does the code inside run?',
+          options: [
+            { ar: 'بعد 20 ثانية', en: 'After 20 seconds' },
+            { ar: 'بعد 200 ثانية', en: 'After 200 seconds' },
+            { ar: 'بعد نصف ثانية', en: 'After 0.5 seconds' },
+            { ar: 'بعد ثانيتين (2000 مللي ثانية)', en: 'After 2 seconds (2000 milliseconds)' }
+          ],
+          answer: 3,
+          expAr: 'الدالة `setTimeout` تستقبل الزمن بالمللي ثانية، وكل 1000 مللي ثانية تساوي ثانية واحدة.',
+          expEn: '`setTimeout` takes milliseconds, so `2000` equals 2 seconds.'
+        },
+        {
+          id: 21,
+          ar: 'ما وظيفة السطر `text.innerText = \'Downloading...\';`؟',
+          en: 'What does `text.innerText = \'Downloading...\';` do?',
+          options: [
+            { ar: 'يغيّر النص الظاهر داخل العنصر `text` إلى `Downloading...`', en: 'Changes the visible text inside the `text` element to `Downloading...`' },
+            { ar: 'يضيف كلاساً جديداً اسمه `Downloading...` للعنصر', en: 'Adds a new CSS class named `Downloading...` to the element' },
+            { ar: 'يفتح نافذة منبثقة تعرض رسالة تحميل', en: 'Opens a popup modal showing a download message' },
+            { ar: 'يحفظ الملف تلقائياً على جهاز المستخدم', en: 'Automatically saves a file to the user’s computer' }
+          ],
+          answer: 0,
+          expAr: 'الخاصية `innerText` تقرأ أو تعدّل النص الظاهر داخل عنصر HTML.',
+          expEn: 'The `innerText` property updates the visible text content inside an element.'
+        },
+
+        // --- Alerts, Width, Form Control & Centering (7 questions) ---
+        {
+          id: 22,
+          ar: 'ما الكلاسان المطلوبان لإنشاء صندوق تنبيه أخضر في Bootstrap؟',
+          en: 'Which two classes are needed to create a green alert box in Bootstrap?',
+          options: [
+            { ar: '`btn btn-success`', en: '`btn btn-success`' },
+            { ar: '`alert alert-success`', en: '`alert alert-success`' },
+            { ar: '`card card-success`', en: '`card card-success`' },
+            { ar: '`badge badge-success`', en: '`badge badge-success`' }
+          ],
+          answer: 1,
+          expAr: 'يُنشأ التنبيه بالكلاس الأساسي `alert` متبوعاً بكلاس اللون مثل `alert-success`.',
+          expEn: 'Alerts require the base `.alert` class paired with a contextual class like `.alert-success`.'
+        },
+        {
+          id: 23,
+          ar: 'أي كلاس تنبيه يُستخدم عادةً لعرض رسالة تحذير صفراء؟',
+          en: 'Which alert class is used to display a yellow warning message?',
+          options: [
+            { ar: '`alert-primary`', en: '`alert-primary`' },
+            { ar: '`alert-dark`', en: '`alert-dark`' },
+            { ar: '`alert-warning`', en: '`alert-warning`' },
+            { ar: '`alert-info`', en: '`alert-info`' }
+          ],
+          answer: 2,
+          expAr: 'الكلاس `alert-warning` يعرض صندوق تنبيه بلون أصفر تحذيري.',
+          expEn: '`alert-warning` styles the alert box in Bootstrap’s yellow warning palette.'
+        },
+        {
+          id: 24,
+          ar: 'ما وظيفة الكلاس `w-50` عند تطبيقه على عنصر `<div>`؟',
+          en: 'What does the `w-50` class do when applied to a `<div>` element?',
+          options: [
+            { ar: 'يجعل ارتفاع العنصر 50 بكسل فقط', en: 'Sets the element height to 50 pixels only' },
+            { ar: 'يجعل عرض العنصر 50 بكسل فقط', en: 'Sets the element width to 50 pixels only' },
+            { ar: 'يضيف هامشاً سفلياً بمقدار 50%', en: 'Adds a bottom margin of 50%' },
+            { ar: 'يجعل عرض العنصر 50% من عرض العنصر الأب', en: 'Sets the element width to 50% of its parent' }
+          ],
+          answer: 3,
+          expAr: 'الكلاس `w-50` يطبق `width: 50%` نسبةً إلى الحاوية الأب.',
+          expEn: '`w-50` sets `width: 50%` relative to the parent container.'
+        },
+        {
+          id: 25,
+          ar: 'ما فائدة إضافة الكلاس `form-control` إلى الوسم `<input type="text">` في Bootstrap؟',
+          en: 'What is the benefit of adding `form-control` to `<input type="text">` in Bootstrap?',
+          options: [
+            { ar: 'تنسيق حقل الإدخال بشكل احترافي مع عرض كامل وحواف ناعمة', en: 'Styles the input cleanly with full width, padding, and rounded borders' },
+            { ar: 'منع المستخدم من الكتابة داخل حقل الإدخال', en: 'Prevents the user from typing inside the input field' },
+            { ar: 'تحويل حقل الإدخال النصي إلى قائمة منسدلة', en: 'Converts the text input into a dropdown menu' },
+            { ar: 'إرسال النموذج تلقائياً عند كتابة أول حرف', en: 'Submits the form automatically after the first character' }
+          ],
+          answer: 0,
+          expAr: 'الكلاس `form-control` يعطي حقول الإدخال تنسيق Bootstrap القياسي بعرض 100% وحواف واضحة.',
+          expEn: '`form-control` applies Bootstrap’s standard full-width styling and focus ring to inputs.'
+        },
+        {
+          id: 26,
+          ar: 'لماذا نستخدم الكلاسين `d-block mx-auto` معاً على زر `<button>` أو صورة `<img>`؟',
+          en: 'Why are `d-block` and `mx-auto` used together on a `<button>` or `<img>`?',
+          options: [
+            { ar: 'لإخفاء العنصر وإظهاره بتأثير متلاشي', en: 'To hide and reveal the element with a fade effect' },
+            { ar: 'لتحويل العنصر إلى Block وتوسيطه أفقياً في المنتصف', en: 'To make it a block element and center it horizontally' },
+            { ar: 'لجعل العنصر بجانب النص في نفس السطر', en: 'To place the element inline next to text' },
+            { ar: 'لإزالة جميع الهوامش الأفقية حول العنصر', en: 'To remove all horizontal margins around the element' }
+          ],
+          answer: 1,
+          expAr: 'الهوامش التلقائية `mx-auto` (يمين ويسار) توسط العنصر أفقياً عندما يكون `display: block` (`d-block`).',
+          expEn: '`mx-auto` centers an element horizontally once `d-block` makes it a block-level box.'
+        },
+        {
+          id: 27,
+          ar: 'ما وظيفة الكلاس `mb-3` في `<h3 class="text-center mb-3">`؟',
+          en: 'What does `mb-3` do in `<h3 class="text-center mb-3">`?',
+          options: [
+            { ar: 'يضيف مسافة خارجية أعلى العنصر فقط', en: 'Adds outer top margin only' },
+            { ar: 'يضيف مسافة داخلية أسفل العنصر فقط', en: 'Adds inner bottom padding only' },
+            { ar: 'يضيف مسافة خارجية (Margin) أسفل العنصر بمستوى 3', en: 'Adds bottom margin at spacing level 3' },
+            { ar: 'يحدد سمك الحد السفلي بـ 3 بكسل', en: 'Sets the bottom border thickness to 3px' }
+          ],
+          answer: 2,
+          expAr: '`mb-3` اختصار لـ `margin-bottom` بالمستوى 3 لفصل العنصر عما أسفله.',
+          expEn: '`mb-3` stands for `margin-bottom` size 3, adding space below the element.'
+        },
+        {
+          id: 28,
+          ar: 'ماذا تفعل الكلاسات `d-flex justify-content-center` عند وضعها على الوسم `<body>`؟',
+          en: 'What do `d-flex justify-content-center` do when placed on the `<body>` tag?',
+          options: [
+            { ar: 'تلوين خلفية الصفحة بالكامل باللون الأزرق', en: 'Colors the entire page background blue' },
+            { ar: 'تثبيت محتوى الصفحة في أسفل الشاشة', en: 'Pins the page content to the bottom of the screen' },
+            { ar: 'تقسيم الصفحة إلى 3 أعمدة متساوية', en: 'Splits the page into 3 equal columns' },
+            { ar: 'توسيط المحتوى المباشر داخل الصفحة أفقياً', en: 'Centers direct child content horizontally on the page' }
+          ],
+          answer: 3,
+          expAr: '`d-flex` مع `justify-content-center` يوسط الأبناء المباشرين أفقياً داخل الـ `<body>`.',
+          expEn: '`d-flex` paired with `justify-content-center` horizontally centers direct children.'
+        },
+
+        // --- Cards, Modals & Bootstrap JS Bundle (9 questions) ---
+        {
+          id: 29,
+          ar: 'أي مجموعة كلاسات تمثل البنية القياسية لبطاقة (Card) في Bootstrap؟',
+          en: 'Which set of classes represents the standard structure of a Bootstrap Card?',
+          options: [
+            { ar: '`.card` و `.card-body` و `.card-title` و `.card-text`', en: '`.card`, `.card-body`, `.card-title`, and `.card-text`' },
+            { ar: '`.box` و `.box-inner` و `.box-head` و `.box-p`', en: '`.box`, `.box-inner`, `.box-head`, and `.box-p`' },
+            { ar: '`.modal` و `.modal-body` و `.modal-title` و `.modal-text`', en: '`.modal`, `.modal-body`, `.modal-title`, and `.modal-text`' },
+            { ar: '`.panel` و `.panel-content` و `.panel-heading` و `.panel-desc`', en: '`.panel`, `.panel-content`, `.panel-heading`, and `.panel-desc`' }
+          ],
+          answer: 0,
+          expAr: 'تُبنى البطاقة باستخدام `.card` وبداخلها `.card-body` ثم `.card-title` و `.card-text`.',
+          expEn: 'Bootstrap cards use `.card` containing `.card-body`, `.card-title`, and `.card-text`.'
+        },
+        {
+          id: 30,
+          ar: 'لماذا نحتاج إلى تضمين ملف `bootstrap.bundle.min.js` في نهاية `<body>` عند استخدام الـ Modal أو الـ Dropdown؟',
+          en: 'Why must `bootstrap.bundle.min.js` be included at the end of `<body>` when using a Modal or Dropdown?',
+          options: [
+            { ar: 'لتغيير ألوان الخلفية والخطوط في الصفحة', en: 'To apply background colors and font sizes' },
+            { ar: 'لتشغيل التفاعلات مثل فتح وإغلاق النوافذ والقوائم المنسدلة', en: 'To power interactive behaviors like opening/closing modals and dropdowns' },
+            { ar: 'لتفعيل نظام الشبكة `.row` و `.col-*` فقط', en: 'To enable the `.row` and `.col-*` grid system only' },
+            { ar: 'لإخفاء الصور داخل البطاقات تلقائياً', en: 'To hide images inside cards automatically' }
+          ],
+          answer: 1,
+          expAr: 'المكونات التفاعلية مثل Modal و Dropdown و Navbar Collapse تحتاج كود JavaScript الخاص بـ Bootstrap لتعمل.',
+          expEn: 'Interactive components like modals, dropdowns, and collapses rely on Bootstrap’s JS bundle.'
+        },
+        {
+          id: 31,
+          ar: 'في زر فتح النافذة `<button data-bs-toggle="modal" data-bs-target="#m">Open</button>`، ما وظيفة `data-bs-target="#m"`؟',
+          en: 'In `<button data-bs-toggle="modal" data-bs-target="#m">Open</button>`, what does `data-bs-target="#m"` specify?',
+          options: [
+            { ar: 'عنوان النص الذي سيظهر داخل النافذة', en: 'The title text displayed inside the modal' },
+            { ar: 'مدة حركة ظهور النافذة بالمللي ثانية', en: 'The animation duration of the modal in milliseconds' },
+            { ar: 'معرّف (`id`) نافذة الـ Modal المطلوب فتحها', en: 'The `id` of the specific modal element to open' },
+            { ar: 'لون خلفية الزر عند الضغط عليه', en: 'The background color of the button when clicked' }
+          ],
+          answer: 2,
+          expAr: '`data-bs-target="#m"` يربط الزر بالـ Modal الذي يحمل `id="m"`.',
+          expEn: '`data-bs-target="#m"` points the trigger button to the modal with `id="m"`.'
+        },
+        {
+          id: 32,
+          ar: 'ما وظيفة السمة `data-bs-toggle="modal"` على زر الفتح؟',
+          en: 'What is the role of `data-bs-toggle="modal"` on the trigger button?',
+          options: [
+            { ar: 'تغلق النافذة المنبثقة المفتوحة حالياً', en: 'Closes the currently open modal window' },
+            { ar: 'تحوّل الزر إلى رابط يفتح صفحة جديدة', en: 'Turns the button into a link to a new page' },
+            { ar: 'تضيف تأثير تلاشي على الزر فقط', en: 'Adds a fade animation to the button only' },
+            { ar: 'تخبر Bootstrap أن هذا الزر مسؤول عن فتح نافذة Modal', en: 'Tells Bootstrap that clicking this button toggles a modal' }
+          ],
+          answer: 3,
+          expAr: 'السمة `data-bs-toggle="modal"` تفعّل مكون الـ Modal عند النقر على الزر.',
+          expEn: '`data-bs-toggle="modal"` instructs Bootstrap to trigger the modal component on click.'
+        },
+        {
+          id: 33,
+          ar: 'ما الترتيب الصحيح للطبقات الأساسية داخل نافذة الـ Modal في Bootstrap؟',
+          en: 'What is the correct nesting order of the outer containers of a Bootstrap Modal?',
+          options: [
+            { ar: '`.modal` ثم `.modal-dialog` ثم `.modal-content`', en: '`.modal` → `.modal-dialog` → `.modal-content`' },
+            { ar: '`.modal-content` ثم `.modal` ثم `.modal-dialog`', en: '`.modal-content` → `.modal` → `.modal-dialog`' },
+            { ar: '`.modal-dialog` ثم `.modal-content` ثم `.modal`', en: '`.modal-dialog` → `.modal-content` → `.modal`' },
+            { ar: '`.modal` ثم `.modal-body` ثم `.modal-dialog`', en: '`.modal` → `.modal-body` → `.modal-dialog`' }
+          ],
+          answer: 0,
+          expAr: 'الهيكل القياسي للـ Modal هو `.modal` وبداخله `.modal-dialog` ثم `.modal-content`.',
+          expEn: 'A Bootstrap modal nests `.modal-dialog` inside `.modal`, and `.modal-content` inside `.modal-dialog`.'
+        },
+        {
+          id: 34,
+          ar: 'ما وظيفة الكلاس `fade` في `<div class="modal fade" id="m">`؟',
+          en: 'What does the `fade` class do in `<div class="modal fade" id="m">`?',
+          options: [
+            { ar: 'يجعل النافذة شفافة بنسبة 10% طوال الوقت', en: 'Keeps the modal at 10% opacity permanently' },
+            { ar: 'يضيف حركة ظهور واختفاء ناعمة عند فتح وإغلاق النافذة', en: 'Adds a smooth fade-in and fade-out transition when toggling the modal' },
+            { ar: 'يمنع إغلاق النافذة بالضغط خارجها', en: 'Prevents closing the modal when clicking outside it' },
+            { ar: 'يصغّر عرض النافذة على شاشات الكمبيوتر', en: 'Shrinks the modal width on desktop screens' }
+          ],
+          answer: 1,
+          expAr: 'الكلاس `fade` يمنح نافذة الـ Modal تأثيراً حركياً سلساً عند الفتح والإغلاق.',
+          expEn: '`.fade` animates the modal smoothly into and out of view.'
+        },
+        {
+          id: 35,
+          ar: 'أي سمة تُضاف إلى زر الإغلاق داخل الـ Modal ليغلق النافذة عند النقر عليه؟',
+          en: 'Which attribute is added to a close/cancel button inside a modal so clicking it closes the modal?',
+          options: [
+            { ar: '`data-bs-toggle="close"`', en: '`data-bs-toggle="close"`' },
+            { ar: '`data-bs-target="close"`', en: '`data-bs-target="close"`' },
+            { ar: '`data-bs-dismiss="modal"`', en: '`data-bs-dismiss="modal"`' },
+            { ar: '`data-bs-hide="modal"`', en: '`data-bs-hide="modal"`' }
+          ],
+          answer: 2,
+          expAr: 'السمة `data-bs-dismiss="modal"` تغلق الـ Modal تلقائياً سواء على زر `btn-close` أو زر Cancel.',
+          expEn: '`data-bs-dismiss="modal"` closes the open modal when the button is clicked.'
+        },
+        {
+          id: 36,
+          ar: 'ما الأقسام الثلاثة التي توضع عادةً داخل `.modal-content`؟',
+          en: 'Which three sections are typically placed inside `.modal-content`?',
+          options: [
+            { ar: '`.card-header` و `.card-body` و `.card-footer`', en: '`.card-header`, `.card-body`, and `.card-footer`' },
+            { ar: '`.nav-header` و `.nav-body` و `.nav-footer`', en: '`.nav-header`, `.nav-body`, and `.nav-footer`' },
+            { ar: '`.dialog-top` و `.dialog-mid` و `.dialog-bottom`', en: '`.dialog-top`, `.dialog-mid`, and `.dialog-bottom`' },
+            { ar: '`.modal-header` و `.modal-body` و `.modal-footer`', en: '`.modal-header`, `.modal-body`, and `.modal-footer`' }
+          ],
+          answer: 3,
+          expAr: 'محتوى الـ Modal ينقسم إلى `.modal-header` و `.modal-body` و `.modal-footer`.',
+          expEn: '`.modal-content` is structured into `.modal-header`, `.modal-body`, and `.modal-footer`.'
+        },
+        {
+          id: 37,
+          ar: 'ما وظيفة الكلاس `btn-close` داخل `.modal-header`؟',
+          en: 'What does the `btn-close` class create inside `.modal-header`?',
+          options: [
+            { ar: 'زر إغلاق جاهز على شكل علامة (×)', en: 'A ready-made close button styled with an (×) icon' },
+            { ar: 'زر أزرق كبير لحفظ البيانات', en: 'A large blue button for saving data' },
+            { ar: 'رابط نصي لتوسيع حجم النافذة', en: 'A text link to maximize the modal' },
+            { ar: 'أيقونة قائمة منسدلة بثلاثة خطوط', en: 'A three-line hamburger menu icon' }
+          ],
+          answer: 0,
+          expAr: 'الكلاس `btn-close` ينشئ أيقونة الإغلاق القياسية (×) في Bootstrap.',
+          expEn: '`.btn-close` renders Bootstrap’s built-in close (×) button.'
+        },
+
+        // --- Navbar, Collapse, Dropdown & Search Form (8 questions) ---
+        {
+          id: 38,
+          ar: 'ما وظيفة الكلاس `navbar-expand-sm` في شريط التنقل `<nav class="navbar navbar-dark bg-dark navbar-expand-sm">`؟',
+          en: 'What does `navbar-expand-sm` do in `<nav class="navbar navbar-dark bg-dark navbar-expand-sm">`?',
+          options: [
+            { ar: 'يخفي شريط التنقل تماماً على الشاشات الكبيرة', en: 'Completely hides the navbar on large screens' },
+            { ar: 'يوسّع القائمة أفقياً بدءاً من مقاس `sm` ويطويها في الشاشات الأصغر', en: 'Expands the navbar horizontally from `sm` upward and collapses it on smaller screens' },
+            { ar: 'يصغّر حجم خط الشعار إلى النصف فقط', en: 'Reduces the brand logo font size by half only' },
+            { ar: 'يجعل لون شريط التنقل أبيض فاتحاً دائماً', en: 'Always makes the navbar background light white' }
+          ],
+          answer: 1,
+          expAr: '`navbar-expand-sm` يحدد نقطة التوقف التي تتحول عندها القائمة من زر منسدل (Toggler) إلى روابط أفقية.',
+          expEn: '`navbar-expand-sm` sets the breakpoint where the navbar switches from collapsed to expanded.'
+        },
+        {
+          id: 39,
+          ar: 'لماذا نستخدم الكلاس `navbar-dark` مع `bg-dark` في شريط التنقل؟',
+          en: 'Why is `navbar-dark` paired with `bg-dark` on a navbar?',
+          options: [
+            { ar: 'لتغيير عرض الشريط ليصبح 50% فقط', en: 'To shrink the navbar width to 50% only' },
+            { ar: 'لإضافة ظل أسود أسفل شريط التنقل', en: 'To add a black drop shadow under the navbar' },
+            { ar: 'لجعل لون الروابط والنصوص فاتحاً ليظهر بوضوح فوق الخلفية الداكنة', en: 'To style links and brand text light so they are readable on a dark background' },
+            { ar: 'لمنع القائمة المنسدلة من الفتح على الهواتف', en: 'To stop dropdown menus from opening on mobile' }
+          ],
+          answer: 2,
+          expAr: '`navbar-dark` يضبط ألوان النصوص وأيقونة الـ Toggler لتكون فاتحة ومناسبة للخلفيات الداكنة مثل `bg-dark`.',
+          expEn: '`navbar-dark` adjusts text and toggler icon colors to light shades for dark backgrounds.'
+        },
+        {
+          id: 40,
+          ar: 'أي كلاس يُستخدم لتنسيق اسم الموقع أو الشعار داخل شريط التنقل؟',
+          en: 'Which class styles the site name or brand logo inside a navbar?',
+          options: [
+            { ar: '`nav-item`', en: '`nav-item`' },
+            { ar: '`nav-link`', en: '`nav-link`' },
+            { ar: '`navbar-nav`', en: '`navbar-nav`' },
+            { ar: '`navbar-brand`', en: '`navbar-brand`' }
+          ],
+          answer: 3,
+          expAr: 'الكلاس `navbar-brand` مخصص لاسم العلامة التجارية أو الشعار في شريط التنقل.',
+          expEn: '`.navbar-brand` styles the company, product, or site name in the navbar.'
+        },
+        {
+          id: 41,
+          ar: 'كيف يرتبط زر `<button class="navbar-toggler">` بقائمة الروابط القابلة للطي `<div class="collapse navbar-collapse" id="c">`؟',
+          en: 'How does `<button class="navbar-toggler">` connect to `<div class="collapse navbar-collapse" id="c">`?',
+          options: [
+            { ar: 'باستخدام `data-bs-toggle="collapse"` و `data-bs-target="#c"`', en: 'Using `data-bs-toggle="collapse"` and `data-bs-target="#c"`' },
+            { ar: 'باستخدام `data-bs-toggle="modal"` و `data-bs-target="#c"`', en: 'Using `data-bs-toggle="modal"` and `data-bs-target="#c"`' },
+            { ar: 'باستخدام `data-bs-dismiss="collapse"` و `href="#c"`', en: 'Using `data-bs-dismiss="collapse"` and `href="#c"`' },
+            { ar: 'باستخدام `class="dropdown-toggle"` و `id="c"`', en: 'Using `class="dropdown-toggle"` and `id="c"`' }
+          ],
+          answer: 0,
+          expAr: 'الزر يفتح ويغلق القسم القابل للطي عبر `data-bs-toggle="collapse"` و `data-bs-target="#c"`.',
+          expEn: 'The toggler targets the collapsible div using `data-bs-toggle="collapse"` and `data-bs-target="#c"`.'
+        },
+        {
+          id: 42,
+          ar: 'ما وظيفة الكلاس `ms-auto` في `<ul class="navbar-nav ms-auto">` داخل شريط التنقل؟',
+          en: 'What does `ms-auto` do on `<ul class="navbar-nav ms-auto">` inside the navbar?',
+          options: [
+            { ar: 'يجعل جميع الروابط عريضة الخط تلقائياً', en: 'Makes all navigation links bold automatically' },
+            { ar: 'يضيف هامشاً تلقائياً في البداية فيدفع الروابط نحو الجهة المقابلة', en: 'Applies `margin-start: auto`, pushing the nav links toward the opposite side' },
+            { ar: 'يخفي القائمة المنسدلة تلقائياً بعد ثانيتين', en: 'Hides the dropdown automatically after 2 seconds' },
+            { ar: 'يضيف مسافة عمودية بين عناصر القائمة فقط', en: 'Adds vertical spacing between list items only' }
+          ],
+          answer: 1,
+          expAr: '`ms-auto` تعني `margin-inline-start: auto`، وتُستخدم لدفع عناصر القائمة بعيداً عن الشعار.',
+          expEn: '`ms-auto` sets `margin-inline-start: auto`, pushing the nav list away from the brand.'
+        },
+        {
+          id: 43,
+          ar: 'ما الكلاسات الصحيحة لبناء قائمة منسدلة (Dropdown) داخل شريط التنقل؟',
+          en: 'Which classes correctly build a dropdown menu inside a navbar?',
+          options: [
+            { ar: '`collapse` و `collapse-menu` و `collapse-item`', en: '`collapse`, `collapse-menu`, and `collapse-item`' },
+            { ar: '`select` و `select-menu` و `select-option`', en: '`select`, `select-menu`, and `select-option`' },
+            { ar: '`dropdown` و `dropdown-toggle` و `dropdown-menu` و `dropdown-item`', en: '`dropdown`, `dropdown-toggle`, `dropdown-menu`, and `dropdown-item`' },
+            { ar: '`list-group` و `list-toggle` و `list-item`', en: '`list-group`, `list-toggle`, and `list-item`' }
+          ],
+          answer: 2,
+          expAr: 'القائمة المنسدلة تتكون من الحاوية `dropdown` والرابط `dropdown-toggle` والقائمة `dropdown-menu` وعناصرها `dropdown-item`.',
+          expEn: 'Bootstrap dropdowns use `.dropdown`, `.dropdown-toggle`, `.dropdown-menu`, and `.dropdown-item`.'
+        },
+        {
+          id: 44,
+          ar: 'ما السمة المطلوبة على الرابط `<a class="nav-link dropdown-toggle">` لتفتح القائمة المنسدلة عند النقر؟',
+          en: 'Which attribute is required on `<a class="nav-link dropdown-toggle">` so the dropdown opens on click?',
+          options: [
+            { ar: '`data-bs-toggle="modal"`', en: '`data-bs-toggle="modal"`' },
+            { ar: '`data-bs-toggle="collapse"`', en: '`data-bs-toggle="collapse"`' },
+            { ar: '`data-bs-dismiss="dropdown"`', en: '`data-bs-dismiss="dropdown"`' },
+            { ar: '`data-bs-toggle="dropdown"`', en: '`data-bs-toggle="dropdown"`' }
+          ],
+          answer: 3,
+          expAr: 'السمة `data-bs-toggle="dropdown"` هي التي تفعّل فتح وإغلاق القائمة المنسدلة.',
+          expEn: '`data-bs-toggle="dropdown"` tells Bootstrap JS to toggle the dropdown menu.'
+        },
+        {
+          id: 45,
+          ar: 'في نموذج البحث `<form class="d-flex">` داخل الـ Navbar، ما مظهر الزر الذي يحمل `btn btn-outline-light`؟',
+          en: 'In the navbar `<form class="d-flex">`, how does a button with `btn btn-outline-light` look?',
+          options: [
+            { ar: 'زر شفاف بإطار ونص فاتح يتلون باللون الفاتح عند التمرير فوقه', en: 'A transparent button with a light border and text that fills light on hover' },
+            { ar: 'زر أسود داكن بدون أي حدود خارجية', en: 'A solid dark black button with no border' },
+            { ar: 'زر أحمر مملوء باللون بالكامل', en: 'A solid filled red button' },
+            { ar: 'زر مخفي لا يظهر إلا على الهواتف', en: 'A hidden button visible only on mobile' }
+          ],
+          answer: 0,
+          expAr: 'الكلاس `btn-outline-light` ينشئ زراً بإطار فاتح مناسب للخلفيات الداكنة مثل `bg-dark`.',
+          expEn: '`btn-outline-light` creates an outlined light button designed for dark backgrounds.'
+        },
+
+        // --- List Group, Badges & Inline Utilities (5 questions) ---
+        {
+          id: 46,
+          ar: 'ما الكلاسان المستخدمان لإنشاء قائمة عناصر منسّقة (List Group) في Bootstrap؟',
+          en: 'Which two classes are used to create a styled List Group in Bootstrap?',
+          options: [
+            { ar: '`navbar-nav` و `nav-item`', en: '`navbar-nav` and `nav-item`' },
+            { ar: '`list-group` و `list-group-item`', en: '`list-group` and `list-group-item`' },
+            { ar: '`dropdown-menu` و `dropdown-item`', en: '`dropdown-menu` and `dropdown-item`' },
+            { ar: '`card` و `card-item`', en: '`card` and `card-item`' }
+          ],
+          answer: 1,
+          expAr: 'تُنشأ المجموعة بوضع `list-group` على `<ul>` و `list-group-item` على كل `<li>`.',
+          expEn: 'Apply `.list-group` to the `<ul>` and `.list-group-item` to each `<li>`.'
+        },
+        {
+          id: 47,
+          ar: 'ما وظيفة الكلاسات `badge bg-dark rounded-pill` على `<span id="badge">0</span>` بجانب عنوان My Tasks؟',
+          en: 'What do `badge bg-dark rounded-pill` do on `<span id="badge">0</span>` next to My Tasks?',
+          options: [
+            { ar: 'تنشئ مؤشر تحميل دواراً باللون الأسود', en: 'Creates a rotating dark loading spinner' },
+            { ar: 'تحوّل الرقم إلى حقل إدخال قابل للتعديل', en: 'Turns the number into an editable input field' },
+            { ar: 'تنشئ شارة عدّاد داكنة بحواف دائرية كاملة (شكل كبسولة)', en: 'Creates a dark pill-shaped counter badge with fully rounded ends' },
+            { ar: 'تخفي الرقم 0 حتى تتم إضافة أول مهمة', en: 'Hides the number 0 until the first task is added' }
+          ],
+          answer: 2,
+          expAr: '`badge` تنشئ شارة صغيرة، `bg-dark` تلونها بالداكن، و `rounded-pill` تجعل حوافها دائرية بالكامل.',
+          expEn: '`.badge` creates a small count badge, `.bg-dark` colors it dark, and `.rounded-pill` gives pill corners.'
+        },
+        {
+          id: 48,
+          ar: 'في الكود `<input class="form-control mt-5 mb-2 w-75 d-inline">`، لماذا أُضيف الكلاس `d-inline` إلى حقل الإدخال؟',
+          en: 'In `<input class="form-control mt-5 mb-2 w-75 d-inline">`, why is `d-inline` added to the input?',
+          options: [
+            { ar: 'لإخفاء حقل الإدخال تماماً من الصفحة', en: 'To hide the input field completely from the page' },
+            { ar: 'لجعل عرض الحقل 100% من الشاشة', en: 'To force the input width to 100% of the screen' },
+            { ar: 'لتغيير لون النص المكتوب إلى الأبيض', en: 'To change the typed text color to white' },
+            { ar: 'ليظهر زر Add Task بجانب حقل الإدخال في نفس السطر', en: 'So the Add Task button sits beside the input on the same line' }
+          ],
+          answer: 3,
+          expAr: 'بشكل افتراضي `form-control` يكون `display: block`، وإضافة `d-inline` مع `w-75` تسمح للزر بالوقوف بجانبه.',
+          expEn: '`.form-control` is block by default; adding `d-inline` with `w-75` lets the button sit beside it.'
+        },
+        {
+          id: 49,
+          ar: 'ماذا تعني المسافتان `mt-5` و `mb-2` على حقل إدخال المهام؟',
+          en: 'What do `mt-5` and `mb-2` mean on the task input field?',
+          options: [
+            { ar: 'هامش علوي كبير (`margin-top`) وهامش سفلي أصغر (`margin-bottom`)', en: 'A large top margin (`margin-top`) and a smaller bottom margin (`margin-bottom`)' },
+            { ar: 'مسافة داخلية علوية 5% وسفلية 2%', en: 'Top padding of 5% and bottom padding of 2%' },
+            { ar: 'عرض 5 أعمدة وارتفاع عمودين في الشبكة', en: 'Width of 5 columns and height of 2 rows in the grid' },
+            { ar: 'هامش أيمن بمستوى 5 وهامش أيسر بمستوى 2', en: 'Right margin level 5 and left margin level 2' }
+          ],
+          answer: 0,
+          expAr: '`mt` اختصار لـ `margin-top` و `mb` اختصار لـ `margin-bottom`.',
+          expEn: '`mt-5` sets top margin level 5 and `mb-2` sets bottom margin level 2.'
+        },
+        {
+          id: 50,
+          ar: 'ما وظيفة الكلاس `mx-2` على حقل البحث `<input class="form-control mx-2">`؟',
+          en: 'What does `mx-2` do on `<input class="form-control mx-2">`?',
+          options: [
+            { ar: 'يضيف هامشاً خارجياً من الأعلى والأسفل فقط', en: 'Adds outer margin to the top and bottom only' },
+            { ar: 'يضيف هامشاً خارجياً أفقياً (يميناً ويساراً) بمستوى 2', en: 'Adds horizontal margin (left and right) at spacing level 2' },
+            { ar: 'يضاعف عرض حقل الإدخال مرتين تلقائياً', en: 'Doubles the input field width automatically' },
+            { ar: 'يضيف مسافة داخلية (Padding) من جميع الجهات', en: 'Adds inner padding on all four sides' }
+          ],
+          answer: 1,
+          expAr: '`mx` تعني هامشاً على المحور الأفقي X (اليمين واليسار) لفصل الحقل عن الزر والعناصر المجاورة.',
+          expEn: '`mx-2` adds margin along the horizontal X-axis (left and right) at scale 2.'
+        }
+      ];
+
+      let currentIndex = 0;
+      let viewAll = false;
+      let userAnswers = {};
+
+      const quizSection = document.getElementById('quizSection');
+      const resultSection = document.getElementById('resultSection');
+      const attemptBadge = document.getElementById('attemptBadge');
+      const toggleViewBtn = document.getElementById('toggleViewBtn');
+      const progressLabel = document.getElementById('progressLabel');
+      const progressPct = document.getElementById('progressPct');
+      const progressFill = document.getElementById('progressFill');
+      const paletteGrid = document.getElementById('paletteGrid');
+      const currentIndicator = document.getElementById('currentIndicator');
+      const questionsContainer = document.getElementById('questionsContainer');
+      const singleNavGroup = document.getElementById('singleNavGroup');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const submitBtn = document.getElementById('submitBtn');
+
+      const scoreCircle = document.getElementById('scoreCircle');
+      const scorePctEl = document.getElementById('scorePct');
+      const scoreFracEl = document.getElementById('scoreFrac');
+      const resultTitle = document.getElementById('resultTitle');
+      const resultSub = document.getElementById('resultSub');
+      const correctCountEl = document.getElementById('correctCount');
+      const wrongCountEl = document.getElementById('wrongCount');
+      const wrongReviewSection = document.getElementById('wrongReviewSection');
+
+      const submitModal = document.getElementById('submitModal');
+      const submitModalText = document.getElementById('submitModalText');
+      const submitModalWarn = document.getElementById('submitModalWarn');
+      const cancelSubmitBtn = document.getElementById('cancelSubmitBtn');
+      const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
+
+      const unlockBtn = document.getElementById('unlockBtn');
+      const unlockModal = document.getElementById('unlockModal');
+      const pinInput = document.getElementById('pinInput');
+      const pinError = document.getElementById('pinError');
+      const cancelUnlockBtn = document.getElementById('cancelUnlockBtn');
+      const confirmUnlockBtn = document.getElementById('confirmUnlockBtn');
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function formatText(str) {
+        const escaped = escapeHtml(str);
+        return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+      }
+
+      function loadSavedResult() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.submitted === true) return parsed;
+          return null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function saveResult(data) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {
+          // Ignore storage restrictions
+        }
+      }
+
+      function clearSavedResult() {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {
+          // Ignore storage restrictions
+        }
+      }
+
+      function updateProgress() {
+        const answeredCount = Object.keys(userAnswers).length;
+        const total = QUESTIONS.length;
+        const pct = Math.round((answeredCount / total) * 100);
+        progressLabel.textContent = 'تمت الإجابة على ' + answeredCount + ' من ' + total + ' سؤال';
+        progressPct.textContent = pct + '%';
+        progressFill.style.width = pct + '%';
+      }
+
+      function renderPalette() {
+        paletteGrid.innerHTML = '';
+        QUESTIONS.forEach(function (q, idx) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'q-dot';
+          if (userAnswers[q.id] !== undefined) btn.classList.add('answered');
+          if (!viewAll && idx === currentIndex) btn.classList.add('current');
+          btn.textContent = q.id;
+          btn.setAttribute('aria-label', 'سؤال ' + q.id);
+          btn.addEventListener('click', function () {
+            currentIndex = idx;
+            if (viewAll) {
+              const target = document.getElementById('q-card-' + q.id);
+              if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              renderQuiz();
+            }
+          });
+          paletteGrid.appendChild(btn);
+        });
+        currentIndicator.textContent = viewAll
+          ? 'عرض جميع الأسئلة (' + QUESTIONS.length + ')'
+          : 'سؤال ' + (currentIndex + 1) + ' / ' + QUESTIONS.length;
+      }
+
+      function buildQuestionCard(q) {
+        const card = document.createElement('article');
+        card.className = 'question-card';
+        card.id = 'q-card-' + q.id;
+
+        const isAnswered = userAnswers[q.id] !== undefined;
+
+        const meta = document.createElement('div');
+        meta.className = 'q-meta';
+        meta.innerHTML =
+          '<span class="q-number">سؤال ' + q.id + ' / Question ' + q.id + '</span>' +
+          '<span class="q-status ' + (isAnswered ? 'done' : '') + '">' +
+          (isAnswered ? 'تم الاختيار ✓' : 'لم يتم الاختيار') +
+          '</span>';
+        card.appendChild(meta);
+
+        const arEl = document.createElement('div');
+        arEl.className = 'q-text-ar';
+        arEl.innerHTML = formatText(q.ar);
+        card.appendChild(arEl);
+
+        const enEl = document.createElement('div');
+        enEl.className = 'q-text-en';
+        enEl.innerHTML = formatText(q.en);
+        card.appendChild(enEl);
+
+        const list = document.createElement('div');
+        list.className = 'options-list';
+
+        q.options.forEach(function (opt, optIdx) {
+          const optBtn = document.createElement('button');
+          optBtn.type = 'button';
+          optBtn.className = 'option-btn' + (userAnswers[q.id] === optIdx ? ' selected' : '');
+          optBtn.innerHTML =
+            '<span class="opt-letter">' + LETTERS[optIdx] + '</span>' +
+            '<span class="opt-content">' +
+              '<span class="opt-ar">' + formatText(opt.ar) + '</span>' +
+              '<span class="opt-en">' + formatText(opt.en) + '</span>' +
+            '</span>';
+
+          optBtn.addEventListener('click', function () {
+            userAnswers[q.id] = optIdx;
+            updateProgress();
+            renderPalette();
+            const siblings = list.querySelectorAll('.option-btn');
+            siblings.forEach(function (b, i) {
+              b.classList.toggle('selected', i === optIdx);
+            });
+            const statusEl = meta.querySelector('.q-status');
+            if (statusEl) {
+              statusEl.textContent = 'تم الاختيار ✓';
+              statusEl.classList.add('done');
+            }
+          });
+
+          list.appendChild(optBtn);
+        });
+
+        card.appendChild(list);
+        return card;
+      }
+
+      function renderQuiz() {
+        questionsContainer.innerHTML = '';
+        if (viewAll) {
+          QUESTIONS.forEach(function (q) {
+            questionsContainer.appendChild(buildQuestionCard(q));
+          });
+          singleNavGroup.classList.add('hidden');
+          toggleViewBtn.textContent = 'عرض سؤال بسؤال';
+        } else {
+          questionsContainer.appendChild(buildQuestionCard(QUESTIONS[currentIndex]));
+          singleNavGroup.classList.remove('hidden');
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === QUESTIONS.length - 1;
+          toggleViewBtn.textContent = 'عرض جميع الأسئلة';
+        }
+        updateProgress();
+        renderPalette();
+      }
+
+      function renderResult(saved) {
+        quizSection.classList.add('hidden');
+        toggleViewBtn.classList.add('hidden');
+        resultSection.classList.remove('hidden');
+
+        attemptBadge.textContent = 'تم التسليم • المحاولة مغلقة';
+        attemptBadge.classList.add('locked');
+
+        const answersMap = saved.answers || {};
+        let correct = 0;
+        const wrongItems = [];
+
+        QUESTIONS.forEach(function (q) {
+          const chosen = answersMap[q.id];
+          if (chosen === q.answer) {
+            correct++;
+          } else {
+            wrongItems.push({ question: q, chosen: chosen });
+          }
+        });
+
+        const total = QUESTIONS.length;
+        const wrong = wrongItems.length;
+        const pct = Math.round((correct / total) * 100);
+
+        scorePctEl.textContent = pct + '%';
+        scoreFracEl.textContent = correct + ' / ' + total;
+        correctCountEl.textContent = correct;
+        wrongCountEl.textContent = wrong;
+
+        scoreCircle.classList.remove('high', 'low');
+        if (pct >= 75) {
+          scoreCircle.classList.add('high');
+          resultTitle.textContent = 'أحسنت! نتيجة ممتازة / Great Job!';
+        } else if (pct >= 50) {
+          resultTitle.textContent = 'نتيجة جيدة / Good Effort';
+        } else {
+          scoreCircle.classList.add('low');
+          resultTitle.textContent = 'تحتاج إلى مراجعة الدروس / Needs Review';
+        }
+
+        resultSub.textContent = 'تم حفظ نتيجتك وإغلاق الاختبار (محاولة واحدة فقط).';
+
+        wrongReviewSection.innerHTML = '';
+        if (wrongItems.length === 0) {
+          const perfect = document.createElement('div');
+          perfect.className = 'perfect-box';
+          perfect.textContent = 'ممتاز! أجبت على جميع الأسئلة بشكل صحيح ولا توجد إجابات خاطئة. / Perfect score! No wrong answers.';
+          wrongReviewSection.appendChild(perfect);
+          return;
+        }
+
+        const revHeader = document.createElement('div');
+        revHeader.className = 'review-header';
+        revHeader.innerHTML =
+          '<h2>الإجابات الخاطئة (' + wrongItems.length + ') / Wrong Answers Review</h2>';
+        wrongReviewSection.appendChild(revHeader);
+
+        wrongItems.forEach(function (item) {
+          const q = item.question;
+          const chosenIdx = item.chosen;
+          const rightOpt = q.options[q.answer];
+          const chosenHtml = chosenIdx !== undefined && q.options[chosenIdx]
+            ? '<div class="opt-ar">' + LETTERS[chosenIdx] + ') ' + formatText(q.options[chosenIdx].ar) + '</div>' +
+              '<div class="opt-en">' + formatText(q.options[chosenIdx].en) + '</div>'
+            : '<div class="opt-ar">لم تتم الإجابة على هذا السؤال</div><div class="opt-en">Not answered</div>';
+
+          const card = document.createElement('article');
+          card.className = 'review-card';
+          card.innerHTML =
+            '<div class="q-meta">' +
+              '<span class="q-number">سؤال ' + q.id + ' / Question ' + q.id + '</span>' +
+            '</div>' +
+            '<div class="q-text-ar">' + formatText(q.ar) + '</div>' +
+            '<div class="q-text-en">' + formatText(q.en) + '</div>' +
+            '<div class="ans-compare">' +
+              '<div class="ans-box user-wrong">' +
+                '<span class="ans-tag">إجابتك الخاطئة / Your Answer</span>' +
+                chosenHtml +
+              '</div>' +
+              '<div class="ans-box right-ans">' +
+                '<span class="ans-tag">الإجابة الصحيحة / Correct Answer</span>' +
+                '<div class="opt-ar">' + LETTERS[q.answer] + ') ' + formatText(rightOpt.ar) + '</div>' +
+                '<div class="opt-en">' + formatText(rightOpt.en) + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="exp-box">' +
+              '<div><strong>التوضيح:</strong> ' + formatText(q.expAr) + '</div>' +
+              '<div class="exp-en"><strong>Explanation:</strong> ' + formatText(q.expEn) + '</div>' +
+            '</div>';
+
+          wrongReviewSection.appendChild(card);
+        });
+      }
+
+      toggleViewBtn.addEventListener('click', function () {
+        viewAll = !viewAll;
+        renderQuiz();
+      });
+
+      prevBtn.addEventListener('click', function () {
+        if (currentIndex > 0) {
+          currentIndex--;
+          renderQuiz();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+
+      nextBtn.addEventListener('click', function () {
+        if (currentIndex < QUESTIONS.length - 1) {
+          currentIndex++;
+          renderQuiz();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+
+      submitBtn.addEventListener('click', function () {
+        const answeredCount = Object.keys(userAnswers).length;
+        const unanswered = QUESTIONS.length - answeredCount;
+        submitModalText.textContent =
+          'لقد أجبت على ' + answeredCount + ' من أصل ' + QUESTIONS.length + ' سؤال.';
+        if (unanswered > 0) {
+          submitModalWarn.textContent =
+            'يوجد ' + unanswered + ' سؤال بدون إجابة وسيتم احتسابها كإجابات خاطئة.';
+          submitModalWarn.classList.remove('hidden');
+        } else {
+          submitModalWarn.classList.add('hidden');
+        }
+        submitModal.classList.add('open');
+      });
+
+      cancelSubmitBtn.addEventListener('click', function () {
+        submitModal.classList.remove('open');
+      });
+
+      confirmSubmitBtn.addEventListener('click', function () {
+        submitModal.classList.remove('open');
+        const payload = {
+          submitted: true,
+          timestamp: Date.now(),
+          answers: Object.assign({}, userAnswers)
+        };
+        saveResult(payload);
+        renderResult(payload);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      unlockBtn.addEventListener('click', function () {
+        pinInput.value = '';
+        pinError.textContent = '';
+        unlockModal.classList.add('open');
+        pinInput.focus();
+      });
+
+      cancelUnlockBtn.addEventListener('click', function () {
+        unlockModal.classList.remove('open');
+      });
+
+      function attemptUnlock() {
+        if (pinInput.value.trim() === INSTRUCTOR_PIN) {
+          clearSavedResult();
+          userAnswers = {};
+          currentIndex = 0;
+          viewAll = false;
+          unlockModal.classList.remove('open');
+          resultSection.classList.add('hidden');
+          quizSection.classList.remove('hidden');
+          toggleViewBtn.classList.remove('hidden');
+          attemptBadge.textContent = 'محاولة واحدة فقط • 50 سؤال';
+          attemptBadge.classList.remove('locked');
+          renderQuiz();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          pinError.textContent = 'رمز المعلم غير صحيح';
+        }
+      }
+
+      confirmUnlockBtn.addEventListener('click', attemptUnlock);
+      pinInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') attemptUnlock();
+      });
+
+      submitModal.addEventListener('click', function (e) {
+        if (e.target === submitModal) submitModal.classList.remove('open');
+      });
+      unlockModal.addEventListener('click', function (e) {
+        if (e.target === unlockModal) unlockModal.classList.remove('open');
+      });
+
+      const existing = loadSavedResult();
+      if (existing) {
+        renderResult(existing);
+      } else {
+        renderQuiz();
+      }
+    })();
+  </script>
+</body>
+</html>
